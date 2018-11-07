@@ -1,0 +1,7 @@
+/.bundle/
+/output/
+.idea
+*.db
+*.xlsx
+
+

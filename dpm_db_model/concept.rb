@@ -6,29 +6,34 @@ module DpmDbModel
     one_to_many :translations, class: 'DpmDbModel::ConceptTranslation', key: :ConceptID, read_only: true
 
     def label_fi
-      translation('label', 'fi')
+      translated_text('label', 'fi')
     end
 
     def label_en
-      translation('label', 'en')
+      translated_text('label', 'en')
     end
 
     def description_fi
-      translation('description', 'fi')
+      translated_text('description', 'fi')
     end
 
     def description_en
-      translation('description', 'en')
+      translated_text('description', 'en')
     end
 
-    def translation(role, lang_code)
-      translations.each { |translation|
-        if translation.Role == role && translation.language.IsoCode == lang_code
-          return translation.Text
-        end
+    def start_date_iso8601
+      self.FromDate ? self.FromDate.iso8601 : nil
+    end
 
-        return nil
-      }
+    def end_date_iso8601
+      self.ToDate ? self.ToDate.iso8601 : nil
+    end
+
+    private
+
+    def translated_text(role, lang_code)
+      translation = translations.find { |t| t.Role == role && t.language.IsoCode == lang_code }
+      translation ? translation.Text : ''
     end
   end
 

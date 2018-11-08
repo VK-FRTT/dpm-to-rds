@@ -3,6 +3,7 @@
 module DpmDbModel
 
   class Domain < Sequel::Model(:mDomain)
+
     one_to_one :concept, class: 'DpmDbModel::Concept', key: :ConceptID, read_only: true
 
     dataset_module do

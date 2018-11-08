@@ -13,9 +13,9 @@ Dir['./dpm_yti_mapping/**/*.rb'].each {|f| require f}
 
 owner = DpmDbModel::Owner.by_name('Suomi SBR')
 
-dname = 'output'
-unless File.directory?(dname)
-  FileUtils.mkdir_p(dname)
+dir_name = 'output'
+unless File.directory?(dir_name)
+  FileUtils.mkdir_p(dir_name)
 end
 
 DpmYtiMapping::ExplicitDomainsAndHierarchies.write_workbooks(owner)

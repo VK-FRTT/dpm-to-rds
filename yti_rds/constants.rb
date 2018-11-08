@@ -8,7 +8,7 @@ module YtiRds
     end
 
     def self.language_code
-      'FI'
+      'fi;sv;en'
     end
 
     def self.status

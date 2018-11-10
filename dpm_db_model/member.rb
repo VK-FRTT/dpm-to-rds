@@ -4,7 +4,7 @@ module DpmDbModel
 
   class Member < Sequel::Model(:mMember)
 
-    one_to_one :concept, class: 'DpmDbModel::Concept', key: :ConceptID, read_only: true
+    many_to_one :concept, class: 'DpmDbModel::Concept', key: :ConceptID, primary_key: :ConceptID, read_only: true
 
     dataset_module do
       def for_domain(domain)
@@ -12,5 +12,4 @@ module DpmDbModel
       end
     end
   end
-
 end

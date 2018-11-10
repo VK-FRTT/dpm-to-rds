@@ -9,14 +9,20 @@ module DpmYtiMapping
       def self.write_workbook(domain_item)
         return unless domain_item.create_members_workbook
 
-        p = Axlsx::Package.new
-        wb = p.workbook
+        ap = Axlsx::Package.new
+        wb = ap.workbook
 
-        add_sheet(wb, codescheme_sheet_data(domain_item))
-        add_sheet(wb, codes_sheet_data(domain_item))
+        add_sheet_to_workbook(wb, codescheme_sheet_data(domain_item))
+        add_sheet_to_workbook(wb, codes_sheet_data(domain_item))
+        add_sheet_to_workbook(wb, extensions_sheet_data(domain_item))
 
+        domain_item.hierarchy_items.map do |hierarchy_item|
+          add_sheet_to_workbook(wb, extension_members_sheet_data(hierarchy_item))
+        end
 
-        p.serialize("output/domain-members-and-hierarchies-#{domain_item.domain_model.DomainCode}.xlsx")
+        file_name = "output/domain-members-and-hierarchies-#{domain_item.domain_model.DomainCode}.xlsx"
+        ap.serialize(file_name)
+        puts "Wrote: #{file_name}"
       end
 
       private
@@ -66,26 +72,64 @@ module DpmYtiMapping
         WorkbookModel::SheetData.new(YtiRds::Sheets.codes_name, YtiRds::Sheets.codes_columns, rows)
       end
 
+      def self.extensions_sheet_data(domain_item)
+        rows = domain_item.hierarchy_items.map do |hierarchy_item|
 
-      def self.add_sheet(workbook, sheet_data)
-        sheet = workbook.add_worksheet(:name => sheet_data.sheet_name)
+          h = hierarchy_item.hierarchy_model
 
-        sheet.add_row(sheet_data.columns.map { |column| column.column_name })
-
-        sheet_data.rows.each { |row_data|
-
-          cell_data = sheet_data.columns.map { |column|
-            cn = column.column_name
-
-            raise "No row value for column #{cn}" unless row_data.key?(cn)
-
-            row_data[cn]
+          {
+            ID: hierarchy_item.hierarchy_uuid,
+            CODEVALUE: h.HierarchyCode,
+            STATUS: YtiRds::Constants.status,
+            PROPERTYTYPE: hierarchy_item.hierarchy_kind,
+            PREFLABEL_FI: h.concept.label_fi,
+            PREFLABEL_EN: h.concept.label_en,
+            STARTDATE: h.concept.start_date_iso8601,
+            ENDDATE: h.concept.end_date_iso8601,
+            MEMBERSSHEET: YtiRds::Sheets.extension_members_name(h.HierarchyCode)
           }
+        end
 
-          sheet.add_row(cell_data)
-        }
+        WorkbookModel::SheetData.new(YtiRds::Sheets.extensions_name, YtiRds::Sheets.extensions_columns, rows)
+      end
+
+      def self.extension_members_sheet_data(hierarchy_item)
+        h = hierarchy_item.hierarchy_model
+
+        rows = hierarchy_item
+                 .hierarchy_node_items
+                 .sort { |a, b| a.hierarchy_node_model.Order <=> b.hierarchy_node_model.Order }
+                 .map do |hierarchy_node_item|
+
+          hn = hierarchy_node_item.hierarchy_node_model
+
+          {
+            ID: hierarchy_node_item.hierarchy_node_uuid,
+            UNARYOPERATOR: hn.UnaryOperator,
+            COMPARISONOPERATOR: hn.ComparisonOperator,
+            CODE: hn.member.MemberCode,
+            RELATION: hn.parent_member.nil? ? nil : hn.parent_member.MemberCode,
+            PREFLABEL_FI: hn.concept.label_fi,
+            PREFLABEL_EN: hn.concept.label_en,
+            STARTDATE: hn.concept.start_date_iso8601,
+            ENDDATE: hn.concept.end_date_iso8601
+          }
+        end
+
+        if hierarchy_item.hierarchy_kind == YtiRds::Constants.definition_hierarchy
+          columns = YtiRds::Sheets.defhier_extension_members_columns
+        elsif hierarchy_item.hierarchy_kind == YtiRds::Constants.calculation_hierarchy
+          columns = YtiRds::Sheets.calchier_extension_members_columns
+        else
+          raise "Unsupported extension hierarchy kind: #{hierarchy_item.hierarchy_kind}"
+        end
+
+        WorkbookModel::SheetData.new(
+          YtiRds::Sheets.extension_members_name(h.HierarchyCode),
+          columns,
+          rows
+        )
       end
     end
-
   end
 end

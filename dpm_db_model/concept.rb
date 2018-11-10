@@ -36,5 +36,4 @@ module DpmDbModel
       translation ? translation.Text : ''
     end
   end
-
 end

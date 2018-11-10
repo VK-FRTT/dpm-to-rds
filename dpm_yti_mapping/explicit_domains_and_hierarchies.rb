@@ -11,7 +11,7 @@ module DpmYtiMapping
         DpmYtiMapping::ExplicitDomainsAndHierarchies::MembersWorkbook.write_workbook(domain_item)
       }
 
-      DpmYtiMapping::ExplicitDomainsAndHierarchies::DomainsWorkbook.write_workbook(domain_items)
+      DpmYtiMapping::ExplicitDomainsAndHierarchies::DomainsListWorkbook.write_workbook(domain_items)
     end
 
     private
@@ -47,7 +47,26 @@ module DpmYtiMapping
     end
 
     def self.hierarchy_items(domain)
-      hierarchy_items = [] #TODO
+      DpmDbModel::Hierarchy.for_domain(domain).all.map { |hierarchy|
+        hierarchy_node_items = hierarchy_node_items(hierarchy)
+        hierarchy_kind = analyze_hierarchy_kind(hierarchy_node_items)
+
+        ExplicitDomainsAndHierarchies::HierarchyItem.new(
+          hierarchy,
+          hierarchy_kind,
+          hierarchy_node_items,
+          SecureRandom.uuid
+        )
+      }
+    end
+
+    def self.hierarchy_node_items(hierarchy)
+      DpmDbModel::HierarchyNode.for_hierarchy(hierarchy).all.map { |hierarchy_node|
+        ExplicitDomainsAndHierarchies::HierarchyNodeItem.new(
+          hierarchy_node,
+          SecureRandom.uuid
+        )
+      }
     end
 
     def self.default_code(member_items)
@@ -60,6 +79,25 @@ module DpmYtiMapping
 
     def self.create_members_workbook_for_domain?(domain)
       return false if domain.DomainCode == 'MET'
+
+      true
+    end
+
+    def self.analyze_hierarchy_kind(hierarchy_node_items)
+
+      having_ops = hierarchy_node_items.any? do |item|
+        m = item.hierarchy_node_model
+        (op_defined(m.ComparisonOperator) || op_defined(m.UnaryOperator))
+      end
+
+      return YtiRds::Constants.calculation_hierarchy if having_ops
+
+      YtiRds::Constants.definition_hierarchy
+    end
+
+    def self.op_defined(operator)
+      return false if operator.nil?
+      return false if operator.empty?
 
       true
     end

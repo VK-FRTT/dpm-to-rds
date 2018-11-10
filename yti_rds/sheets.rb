@@ -49,6 +49,50 @@ module YtiRds
       'Extensions'
     end
 
+    def self.extensions_columns
+      [
+        columnInfo(:ID),
+        columnInfo(:CODEVALUE),
+        columnInfo(:STATUS),
+        columnInfo(:PROPERTYTYPE),
+        columnInfo(:PREFLABEL_FI),
+        columnInfo(:PREFLABEL_EN),
+        columnInfo(:STARTDATE),
+        columnInfo(:ENDDATE),
+        columnInfo(:MEMBERSSHEET)
+      ]
+    end
+
+    def self.extension_members_name(extension_code)
+      "Members_#{extension_code}"
+    end
+
+    def self.defhier_extension_members_columns
+      [
+        columnInfo(:ID),
+        columnInfo(:PREFLABEL_FI),
+        columnInfo(:PREFLABEL_EN),
+        columnInfo(:CODE),
+        columnInfo(:RELATION),
+        columnInfo(:STARTDATE),
+        columnInfo(:ENDDATE)
+      ]
+    end
+
+    def self.calchier_extension_members_columns
+      [
+        columnInfo(:ID),
+        columnInfo(:UNARYOPERATOR),
+        columnInfo(:COMPARISONOPERATOR),
+        columnInfo(:PREFLABEL_FI),
+        columnInfo(:PREFLABEL_EN),
+        columnInfo(:CODE),
+        columnInfo(:RELATION),
+        columnInfo(:STARTDATE),
+        columnInfo(:ENDDATE)
+      ]
+    end
+
     private
 
     def self.columnInfo(column_name)

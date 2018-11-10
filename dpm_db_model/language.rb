@@ -4,5 +4,4 @@ module DpmDbModel
 
   class Language < Sequel::Model(:mLanguage)
   end
-
 end

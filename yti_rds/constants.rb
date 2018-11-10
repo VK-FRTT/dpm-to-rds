@@ -14,5 +14,13 @@ module YtiRds
     def self.status
       'DRAFT'
     end
+
+    def self.calculation_hierarchy
+      'calculationHierarchy'
+    end
+
+    def self.definition_hierarchy
+      'definitionHierarchy'
+    end
   end
 end

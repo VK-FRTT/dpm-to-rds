@@ -9,8 +9,8 @@ module DpmYtiMapping
       attr_reader :member_model
       attr_reader :member_uuid
 
-      def initialize(member, member_uuid)
-        @member_model = member
+      def initialize(member_model, member_uuid)
+        @member_model = member_model
         @member_uuid = member_uuid
       end
     end

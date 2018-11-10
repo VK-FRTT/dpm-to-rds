@@ -85,14 +85,14 @@ module DpmYtiMapping
 
     def self.analyze_hierarchy_kind(hierarchy_node_items)
 
-      having_ops = hierarchy_node_items.any? do |item|
+      ops_present = hierarchy_node_items.any? do |item|
         m = item.hierarchy_node_model
         (op_defined(m.ComparisonOperator) || op_defined(m.UnaryOperator))
       end
 
-      return YtiRds::Constants.calculation_hierarchy if having_ops
+      return YtiRds::Constants::ExtensionTypes::CALCULATION_HIERARCHY if ops_present
 
-      YtiRds::Constants.definition_hierarchy
+      YtiRds::Constants::ExtensionTypes::DEFINITION_HIERARCHY
     end
 
     def self.op_defined(operator)

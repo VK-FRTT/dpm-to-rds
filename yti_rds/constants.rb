@@ -2,25 +2,13 @@
 
 module YtiRds
   class Constants
+    INFORMATION_DOMAIN = 'P14'
+    LANGUAGE_CODE = 'fi;sv;en'
+    STATUS = 'DRAFT'
 
-    def self.information_domain
-      'P14'
-    end
-
-    def self.language_code
-      'fi;sv;en'
-    end
-
-    def self.status
-      'DRAFT'
-    end
-
-    def self.calculation_hierarchy
-      'calculationHierarchy'
-    end
-
-    def self.definition_hierarchy
-      'definitionHierarchy'
+    class ExtensionTypes
+      CALCULATION_HIERARCHY = 'calculationHierarchy'
+      DEFINITION_HIERARCHY = 'definitionHierarchy'
     end
   end
 end

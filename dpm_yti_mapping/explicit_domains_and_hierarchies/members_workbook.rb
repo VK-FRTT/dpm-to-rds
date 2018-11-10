@@ -33,9 +33,9 @@ module DpmYtiMapping
         row_data = {
           ID: domain_item.domain_uuid,
           CODEVALUE: dm.DomainCode,
-          INFORMATIONDOMAIN: YtiRds::Constants.information_domain,
-          LANGUAGECODE: YtiRds::Constants.language_code,
-          STATUS: YtiRds::Constants.status,
+          INFORMATIONDOMAIN: YtiRds::Constants::INFORMATION_DOMAIN,
+          LANGUAGECODE: YtiRds::Constants::LANGUAGE_CODE,
+          STATUS: YtiRds::Constants::STATUS,
           DEFAULTCODE: domain_item.default_code,
           PREFLABEL_FI: dm.concept.label_fi,
           PREFLABEL_EN: dm.concept.label_en,
@@ -59,7 +59,7 @@ module DpmYtiMapping
             ID: member_item.member_uuid,
             CODEVALUE: m.MemberCode,
             BROADER: nil,
-            STATUS: YtiRds::Constants.status,
+            STATUS: YtiRds::Constants::STATUS,
             PREFLABEL_FI: m.concept.label_fi,
             PREFLABEL_EN: m.concept.label_en,
             DESCRIPTION_FI: m.concept.description_fi,
@@ -80,7 +80,7 @@ module DpmYtiMapping
           {
             ID: hierarchy_item.hierarchy_uuid,
             CODEVALUE: h.HierarchyCode,
-            STATUS: YtiRds::Constants.status,
+            STATUS: YtiRds::Constants::STATUS,
             PROPERTYTYPE: hierarchy_item.hierarchy_kind,
             PREFLABEL_FI: h.concept.label_fi,
             PREFLABEL_EN: h.concept.label_en,
@@ -116,17 +116,9 @@ module DpmYtiMapping
           }
         end
 
-        if hierarchy_item.hierarchy_kind == YtiRds::Constants.definition_hierarchy
-          columns = YtiRds::Sheets.defhier_extension_members_columns
-        elsif hierarchy_item.hierarchy_kind == YtiRds::Constants.calculation_hierarchy
-          columns = YtiRds::Sheets.calchier_extension_members_columns
-        else
-          raise "Unsupported extension hierarchy kind: #{hierarchy_item.hierarchy_kind}"
-        end
-
         WorkbookModel::SheetData.new(
           YtiRds::Sheets.extension_members_name(h.HierarchyCode),
-          columns,
+          YtiRds::Sheets.extension_members_columns(hierarchy_item.hierarchy_kind),
           rows
         )
       end

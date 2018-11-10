@@ -67,30 +67,35 @@ module YtiRds
       "Members_#{extension_code}"
     end
 
-    def self.defhier_extension_members_columns
-      [
-        columnInfo(:ID),
-        columnInfo(:PREFLABEL_FI),
-        columnInfo(:PREFLABEL_EN),
-        columnInfo(:CODE),
-        columnInfo(:RELATION),
-        columnInfo(:STARTDATE),
-        columnInfo(:ENDDATE)
-      ]
-    end
+    def self.extension_members_columns(extension_type)
 
-    def self.calchier_extension_members_columns
-      [
-        columnInfo(:ID),
-        columnInfo(:UNARYOPERATOR),
-        columnInfo(:COMPARISONOPERATOR),
-        columnInfo(:PREFLABEL_FI),
-        columnInfo(:PREFLABEL_EN),
-        columnInfo(:CODE),
-        columnInfo(:RELATION),
-        columnInfo(:STARTDATE),
-        columnInfo(:ENDDATE)
-      ]
+      if extension_type == YtiRds::Constants::ExtensionTypes::DEFINITION_HIERARCHY
+        return [
+          columnInfo(:ID),
+          columnInfo(:PREFLABEL_FI),
+          columnInfo(:PREFLABEL_EN),
+          columnInfo(:CODE),
+          columnInfo(:RELATION),
+          columnInfo(:STARTDATE),
+          columnInfo(:ENDDATE)
+        ]
+      end
+
+      if extension_type == YtiRds::Constants::ExtensionTypes::CALCULATION_HIERARCHY
+        return [
+          columnInfo(:ID),
+          columnInfo(:UNARYOPERATOR),
+          columnInfo(:COMPARISONOPERATOR),
+          columnInfo(:PREFLABEL_FI),
+          columnInfo(:PREFLABEL_EN),
+          columnInfo(:CODE),
+          columnInfo(:RELATION),
+          columnInfo(:STARTDATE),
+          columnInfo(:ENDDATE)
+        ]
+      end
+
+      raise "Unsupported extension type: #{extension_type}"
     end
 
     private

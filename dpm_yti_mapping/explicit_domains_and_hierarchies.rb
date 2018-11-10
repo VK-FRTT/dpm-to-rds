@@ -40,8 +40,7 @@ module DpmYtiMapping
     def self.member_items(domain)
       DpmDbModel::Member.for_domain(domain).all.map { |member|
         ExplicitDomainsAndHierarchies::MemberItem.new(
-          member,
-          SecureRandom.uuid
+          member
         )
       }
     end
@@ -54,8 +53,7 @@ module DpmYtiMapping
         ExplicitDomainsAndHierarchies::HierarchyItem.new(
           hierarchy,
           hierarchy_kind,
-          hierarchy_node_items,
-          SecureRandom.uuid
+          hierarchy_node_items
         )
       }
     end
@@ -63,8 +61,7 @@ module DpmYtiMapping
     def self.hierarchy_node_items(hierarchy)
       DpmDbModel::HierarchyNode.for_hierarchy(hierarchy).all.map { |hierarchy_node|
         ExplicitDomainsAndHierarchies::HierarchyNodeItem.new(
-          hierarchy_node,
-          SecureRandom.uuid
+          hierarchy_node
         )
       }
     end

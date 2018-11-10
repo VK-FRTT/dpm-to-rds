@@ -20,7 +20,8 @@ module DpmYtiMapping
           add_sheet_to_workbook(wb, extension_members_sheet_data(hierarchy_item))
         end
 
-        file_name = "output/domain-members-and-hierarchies-#{domain_item.domain_model.DomainCode}.xlsx"
+        dm = domain_item.domain_model
+        file_name = "output/domain-members-and-hierarchies-#{YtiRds::Constants.versioned_code(dm.DomainCode)}.xlsx"
         ap.serialize(file_name)
         puts "Wrote: #{file_name}"
       end
@@ -31,23 +32,27 @@ module DpmYtiMapping
         dm = domain_item.domain_model
 
         row_data = {
-          ID: domain_item.domain_uuid,
-          CODEVALUE: dm.DomainCode,
+          ID: domain_item.domain_members_codescheme_uuid,
+          CODEVALUE: YtiRds::Constants.versioned_code(dm.DomainCode),
           INFORMATIONDOMAIN: YtiRds::Constants::INFORMATION_DOMAIN,
           LANGUAGECODE: YtiRds::Constants::LANGUAGE_CODE,
           STATUS: YtiRds::Constants::STATUS,
           DEFAULTCODE: domain_item.default_code,
-          PREFLABEL_FI: dm.concept.label_fi,
-          PREFLABEL_EN: dm.concept.label_en,
-          DESCRIPTION_FI: dm.concept.description_fi,
-          DESCRIPTION_EN: dm.concept.description_en,
-          STARTDATE: dm.concept.start_date_iso8601,
-          ENDDATE: dm.concept.end_date_iso8601,
+          PREFLABEL_FI: YtiRds::Constants.versioned_label(dm.concept.label_fi),
+          PREFLABEL_EN: YtiRds::Constants.versioned_label(dm.concept.label_en),
+          DESCRIPTION_FI: nil,
+          DESCRIPTION_EN: nil,
+          STARTDATE: nil,
+          ENDDATE: nil,
           CODESSHEET: YtiRds::Sheets.codes_name,
           EXTENSIONSSHEET: YtiRds::Sheets.extensions_name
         }
 
-        WorkbookModel::SheetData.new(YtiRds::Sheets.codescheme_name, YtiRds::Sheets.codescheme_columns, [row_data])
+        WorkbookModel::SheetData.new(
+          YtiRds::Sheets.codescheme_name,
+          YtiRds::Sheets.codescheme_columns,
+          [row_data]
+        )
       end
 
       def self.codes_sheet_data(domain_item)
@@ -56,7 +61,7 @@ module DpmYtiMapping
           m = member_item.member_model
 
           {
-            ID: member_item.member_uuid,
+            ID: SecureRandom.uuid,
             CODEVALUE: m.MemberCode,
             BROADER: nil,
             STATUS: YtiRds::Constants::STATUS,
@@ -78,7 +83,7 @@ module DpmYtiMapping
           h = hierarchy_item.hierarchy_model
 
           {
-            ID: hierarchy_item.hierarchy_uuid,
+            ID: SecureRandom.uuid,
             CODEVALUE: h.HierarchyCode,
             STATUS: YtiRds::Constants::STATUS,
             PROPERTYTYPE: hierarchy_item.hierarchy_kind,
@@ -104,7 +109,7 @@ module DpmYtiMapping
           hn = hierarchy_node_item.hierarchy_node_model
 
           {
-            ID: hierarchy_node_item.hierarchy_node_uuid,
+            ID: SecureRandom.uuid,
             UNARYOPERATOR: hn.UnaryOperator,
             COMPARISONOPERATOR: hn.ComparisonOperator,
             CODE: hn.member.MemberCode,

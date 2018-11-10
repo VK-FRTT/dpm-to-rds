@@ -45,6 +45,22 @@ module YtiRds
       ]
     end
 
+    def self.codes_with_shortname_columns
+      [
+        columnInfo(:ID),
+        columnInfo(:CODEVALUE),
+        columnInfo(:BROADER),
+        columnInfo(:STATUS),
+        columnInfo(:PREFLABEL_FI),
+        columnInfo(:PREFLABEL_EN),
+        columnInfo(:DESCRIPTION_FI),
+        columnInfo(:DESCRIPTION_EN),
+        columnInfo(:STARTDATE),
+        columnInfo(:ENDDATE),
+        columnInfo(:SHORTNAME)
+      ]
+    end
+
     def self.extensions_name
       'Extensions'
     end

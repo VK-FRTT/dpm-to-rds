@@ -20,17 +20,16 @@ Dir['./lib/workbook_model/*.rb'].each { |f| require f }
 Dir['./lib/yti_rds/**/*.rb'].each { |f| require f }
 Dir['./lib/dpm_yti_mapping/**/*.rb'].each { |f| require f }
 
-
-def expect_row_content(workbooks, expected_workbook_name, expected_sheet_name, expected_row_count, row_index)
-  workbook = workbooks.find { |it| it.workbook_name == expected_workbook_name }
+def expect_each_row(workbooks, workbook_name, sheet_name, expected_row_count)
+  workbook = workbooks.find { |it| it.workbook_name == workbook_name }
   expect(workbook).to be_an_instance_of(WorkbookModel::WorkbookData)
 
-  sheet = workbook.sheets.find { |it| it.sheet_name == expected_sheet_name }
+  sheet = workbook.sheets.find { |it| it.sheet_name == sheet_name }
   expect(sheet).to be_an_instance_of(WorkbookModel::SheetData)
 
   expect(sheet.rows.length).to eq expected_row_count
 
-  yield sheet.rows[row_index]
+  sheet.rows.each_with_index { |row, index| yield row, index }
 end
 
 def verify_code_scheme_row(row)
@@ -40,7 +39,6 @@ def verify_code_scheme_row(row)
   expect(row[:STATUS]).to eq('DRAFT')
   expect(row[:CODESSHEET]).to eq('Codes')
 end
-
 
 def verify_code_row(row)
   expect(row[:ID].length).to be(36)

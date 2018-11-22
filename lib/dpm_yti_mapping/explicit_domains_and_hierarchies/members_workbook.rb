@@ -14,7 +14,7 @@ module DpmYtiMapping
         end
 
         WorkbookModel::WorkbookData.new(
-          "../output/domain-members-and-hierarchies-#{YtiRds::Constants.versioned_code(domain_item.domain_model.DomainCode)}.xlsx",
+          "domain-members-and-hierarchies-#{YtiRds::Constants.versioned_code(domain_item.domain_model.DomainCode)}",
           sheets
         )
       end
@@ -32,7 +32,7 @@ module DpmYtiMapping
           STATUS: YtiRds::Constants::STATUS,
           DEFAULTCODE: domain_item.default_code,
           PREFLABEL_FI: YtiRds::Constants.versioned_label(dm.concept.label_fi),
-          PREFLABEL_EN: YtiRds::Constants.versioned_label(dm.concept.label_en),
+          PREFLABEL_EN: nil,
           DESCRIPTION_FI: nil,
           DESCRIPTION_EN: nil,
           STARTDATE: nil,

@@ -71,7 +71,7 @@ module DpmYtiMapping
     def self.default_code(member_items)
       default_member_item = member_items.find { |item| item.member_model.IsDefaultMember }
 
-      return '' unless default_member_item
+      return nil unless default_member_item
 
       default_member_item.member_model.MemberCode
     end

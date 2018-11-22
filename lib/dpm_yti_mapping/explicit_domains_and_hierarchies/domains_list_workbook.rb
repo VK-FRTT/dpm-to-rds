@@ -6,16 +6,11 @@ module DpmYtiMapping
 
     class DomainsListWorkbook
 
-      def self.write_workbook(domain_items)
-        ap = Axlsx::Package.new
-        wb = ap.workbook
-
-        add_sheet_to_workbook(wb, codescheme_sheet_data)
-        add_sheet_to_workbook(wb, codes_sheet_data(domain_items))
-
-        file_name = "output/#{YtiRds::Constants.versioned_code('explicit-domains-list')}.xlsx"
-        ap.serialize(file_name)
-        puts "Wrote: #{file_name}"
+      def self.generate_workbook(domain_items)
+        WorkbookModel::WorkbookData.new(
+          "#{YtiRds::Constants.versioned_code('explicit-domains-list')}",
+          [codescheme_sheet_data, codes_sheet_data(domain_items)]
+        )
       end
 
       private
@@ -29,9 +24,9 @@ module DpmYtiMapping
           STATUS: YtiRds::Constants::STATUS,
           DEFAULTCODE: nil,
           PREFLABEL_FI: YtiRds::Constants.versioned_label('Explicit Domains'),
-          PREFLABEL_EN: YtiRds::Constants.versioned_label('Explicit Domains'),
-          DESCRIPTION_FI: 'Lista Explicit Domaineista. Kukin Domain on linkitetty koodistoon, joka määrittää Domainin Meemberit ja Hierarkiat',
-          DESCRIPTION_EN: 'List of Explicit Domains. Each Domain is linked to Codelist, listing Domain\'s Members and Hierarchies',
+          PREFLABEL_EN: nil,
+          DESCRIPTION_FI: 'Lista Explicit Domaineista. Kukin Domain on linkitetty koodistoon, joka määrittää Domainin Memberit ja Hierarkiat',
+          DESCRIPTION_EN: nil,
           STARTDATE: nil,
           ENDDATE: nil,
           CODESSHEET: YtiRds::Sheets.codes_name,
@@ -61,7 +56,7 @@ module DpmYtiMapping
             DESCRIPTION_EN: d.concept.description_en,
             STARTDATE: d.concept.start_date_iso8601,
             ENDDATE: d.concept.end_date_iso8601,
-            SHORTNAME: "Members in: #{domain_item.domain_members_codescheme_uuid}"
+            SHORTNAME: "Members in: #{domain_item.domain_members_codescheme_uuid}" #Temporary hack until proper linking gets in place
           }
         end
 

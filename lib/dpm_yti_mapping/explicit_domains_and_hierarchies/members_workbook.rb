@@ -6,24 +6,17 @@ module DpmYtiMapping
 
     class MembersWorkbook
 
-      def self.write_workbook(domain_item)
-        return unless domain_item.create_members_workbook
-
-        ap = Axlsx::Package.new
-        wb = ap.workbook
-
-        add_sheet_to_workbook(wb, codescheme_sheet_data(domain_item))
-        add_sheet_to_workbook(wb, codes_sheet_data(domain_item))
-        add_sheet_to_workbook(wb, extensions_sheet_data(domain_item))
+      def self.generate_workbook(domain_item)
+        sheets = [codescheme_sheet_data(domain_item), codes_sheet_data(domain_item), extensions_sheet_data(domain_item)]
 
         domain_item.hierarchy_items.map do |hierarchy_item|
-          add_sheet_to_workbook(wb, extension_members_sheet_data(hierarchy_item))
+          sheets << extension_members_sheet_data(hierarchy_item)
         end
 
-        dm = domain_item.domain_model
-        file_name = "output/domain-members-and-hierarchies-#{YtiRds::Constants.versioned_code(dm.DomainCode)}.xlsx"
-        ap.serialize(file_name)
-        puts "Wrote: #{file_name}"
+        WorkbookModel::WorkbookData.new(
+          "../output/domain-members-and-hierarchies-#{YtiRds::Constants.versioned_code(domain_item.domain_model.DomainCode)}.xlsx",
+          sheets
+        )
       end
 
       private

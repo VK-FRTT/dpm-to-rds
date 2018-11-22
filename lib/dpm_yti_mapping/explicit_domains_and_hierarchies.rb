@@ -4,14 +4,16 @@ module DpmYtiMapping
 
   class ExplicitDomainsAndHierarchies
 
-    def self.write_workbooks(owner)
+    def self.generate_workbooks(owner)
       domain_items = domain_items_for_owner(owner)
 
+      workbooks = [DpmYtiMapping::ExplicitDomainsAndHierarchies::DomainsListWorkbook.generate_workbook(domain_items)]
+
       domain_items.each { |domain_item|
-        DpmYtiMapping::ExplicitDomainsAndHierarchies::MembersWorkbook.write_workbook(domain_item)
+        workbooks << DpmYtiMapping::ExplicitDomainsAndHierarchies::MembersWorkbook.generate_workbook(domain_item)
       }
 
-      DpmYtiMapping::ExplicitDomainsAndHierarchies::DomainsListWorkbook.write_workbook(domain_items)
+      workbooks
     end
 
     private

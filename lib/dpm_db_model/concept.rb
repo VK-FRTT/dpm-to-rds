@@ -10,7 +10,7 @@ module DpmDbModel
     end
 
     def label_en
-      translated_text('label', 'en')
+      ''
     end
 
     def description_fi
@@ -18,7 +18,7 @@ module DpmDbModel
     end
 
     def description_en
-      translated_text('description', 'en')
+      ''
     end
 
     def start_date_iso8601

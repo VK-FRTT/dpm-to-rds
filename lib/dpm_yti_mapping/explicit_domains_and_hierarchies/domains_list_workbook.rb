@@ -41,8 +41,11 @@ module DpmYtiMapping
       end
 
       def self.codes_sheet_data(domain_items)
-        rows = domain_items.map do |domain_item|
-
+        # NOTE: Plain lexicographic sort is used for now
+        # Probably natural sort (for handling inline numbers) should be taken into use..
+        rows = domain_items
+                 .sort { |a, b| a.domain_model.DomainCode <=> b.domain_model.DomainCode }
+                 .map do |domain_item|
           d = domain_item.domain_model
 
           {

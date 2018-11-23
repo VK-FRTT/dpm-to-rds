@@ -9,7 +9,9 @@ module DpmYtiMapping
       def self.generate_workbook(domain_item)
         sheets = [codescheme_sheet_data(domain_item), codes_sheet_data(domain_item), extensions_sheet_data(domain_item)]
 
-        domain_item.hierarchy_items.map do |hierarchy_item|
+        domain_item.hierarchy_items
+          .sort { |a, b| a.hierarchy_model.HierarchyCode <=> b.hierarchy_model.HierarchyCode }
+          .map do |hierarchy_item|
           sheets << extension_members_sheet_data(hierarchy_item)
         end
 
@@ -101,7 +103,7 @@ module DpmYtiMapping
 
           hn = hierarchy_node_item.hierarchy_node_model
 
-          {
+          row = {
             ID: SecureRandom.uuid,
             UNARYOPERATOR: hn.UnaryOperator,
             COMPARISONOPERATOR: hn.ComparisonOperator,
@@ -112,6 +114,13 @@ module DpmYtiMapping
             STARTDATE: hn.concept.start_date_iso8601,
             ENDDATE: hn.concept.end_date_iso8601
           }
+
+          unless hierarchy_item.hierarchy_kind == 'calculationHierarchy'
+            row.delete(:UNARYOPERATOR)
+            row.delete(:COMPARISONOPERATOR)
+          end
+
+          row
         end
 
         WorkbookModel::SheetData.new(

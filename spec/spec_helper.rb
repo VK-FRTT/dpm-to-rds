@@ -20,6 +20,17 @@ Dir['./lib/workbook_model/*.rb'].each { |f| require f }
 Dir['./lib/yti_rds/**/*.rb'].each { |f| require f }
 Dir['./lib/dpm_yti_mapping/**/*.rb'].each { |f| require f }
 
+def expect_each_sheet(workbooks, workbook_name, expected_sheet_count)
+  workbook = workbooks.find { |it| it.workbook_name == workbook_name }
+  expect(workbook).to be_an_instance_of(WorkbookModel::WorkbookData)
+
+  expect(workbook.sheets.length).to eq expected_sheet_count
+
+  if block_given?
+    workbook.sheets.each_with_index { |row, index| yield row, index }
+  end
+end
+
 def expect_each_row(workbooks, workbook_name, sheet_name, expected_row_count)
   workbook = workbooks.find { |it| it.workbook_name == workbook_name }
   expect(workbook).to be_an_instance_of(WorkbookModel::WorkbookData)
@@ -30,17 +41,4 @@ def expect_each_row(workbooks, workbook_name, sheet_name, expected_row_count)
   expect(sheet.rows.length).to eq expected_row_count
 
   sheet.rows.each_with_index { |row, index| yield row, index }
-end
-
-def verify_code_scheme_row(row)
-  expect(row[:ID].length).to be(36)
-  expect(row[:INFORMATIONDOMAIN]).to eq('P14')
-  expect(row[:LANGUAGECODE]).to eq('fi;sv;en')
-  expect(row[:STATUS]).to eq('DRAFT')
-  expect(row[:CODESSHEET]).to eq('Codes')
-end
-
-def verify_code_row(row)
-  expect(row[:ID].length).to be(36)
-  expect(row[:STATUS]).to eq('DRAFT')
 end

@@ -88,10 +88,10 @@ module YtiRds
       if extension_type == YtiRds::Constants::ExtensionTypes::DEFINITION_HIERARCHY
         return [
           columnInfo(:ID),
-          columnInfo(:PREFLABEL_FI),
-          columnInfo(:PREFLABEL_EN),
           columnInfo(:CODE),
           columnInfo(:RELATION),
+          columnInfo(:PREFLABEL_FI),
+          columnInfo(:PREFLABEL_EN),
           columnInfo(:STARTDATE),
           columnInfo(:ENDDATE)
         ]
@@ -100,12 +100,12 @@ module YtiRds
       if extension_type == YtiRds::Constants::ExtensionTypes::CALCULATION_HIERARCHY
         return [
           columnInfo(:ID),
+          columnInfo(:CODE),
+          columnInfo(:RELATION),
           columnInfo(:UNARYOPERATOR),
           columnInfo(:COMPARISONOPERATOR),
           columnInfo(:PREFLABEL_FI),
           columnInfo(:PREFLABEL_EN),
-          columnInfo(:CODE),
-          columnInfo(:RELATION),
           columnInfo(:STARTDATE),
           columnInfo(:ENDDATE)
         ]

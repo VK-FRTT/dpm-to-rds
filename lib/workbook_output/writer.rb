@@ -13,8 +13,10 @@ module WorkbookOutput
 
       workbook_model.sheets.each { |sheet| add_sheet_to_workbook(sheet, wb) }
 
-      ap.serialize(workbook_model.workbook_file_name)
-      puts "Wrote: #{workbook_model.workbook_file_name}"
+      target_file_name = "../output/#{workbook_model.workbook_name}.xlsx"
+
+      ap.serialize(target_file_name)
+      puts "Wrote: #{target_file_name}"
     end
 
     def self.add_sheet_to_workbook(sheet_data, workbook)

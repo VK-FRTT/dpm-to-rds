@@ -16,8 +16,7 @@ module DpmDbModel
       end
 
       def for_owner(owner)
-        association_join(:concept).
-          where(OwnerId: owner.OwnerID)
+        association_join(:concept).where(OwnerId: owner.OwnerID)
       end
     end
   end

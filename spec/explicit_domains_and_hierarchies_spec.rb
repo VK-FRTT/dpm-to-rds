@@ -61,9 +61,9 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODEVALUE]).to eq('DOM')
           expect(row[:BROADER]).to be_nil
           expect(row[:PREFLABEL_FI]).to eq('Domain (fi, label)')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:DESCRIPTION_FI]).to eq('Domain (fi, description)')
-          expect(row[:DESCRIPTION_EN]).to eq('')
+          expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-12-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to eq('2019-05-30')
           expect(row[:SHORTNAME].length).to be > 10
@@ -75,9 +75,9 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODEVALUE]).to eq('EDA')
           expect(row[:BROADER]).to be_nil
           expect(row[:PREFLABEL_FI]).to eq('Explicit domain A')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:DESCRIPTION_FI]).to eq('')
-          expect(row[:DESCRIPTION_EN]).to eq('')
+          expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
           expect(row[:SHORTNAME].length).to be > 10
@@ -146,9 +146,9 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODEVALUE]).to eq('EDA-x1')
           expect(row[:BROADER]).to be_nil
           expect(row[:PREFLABEL_FI]).to eq('EDA member 1')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:DESCRIPTION_FI]).to eq('')
-          expect(row[:DESCRIPTION_EN]).to eq('')
+          expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
           expect(row.length).to be(10)
@@ -165,9 +165,9 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODEVALUE]).to eq('EDA-x4')
           expect(row[:BROADER]).to be_nil
           expect(row[:PREFLABEL_FI]).to eq('EDA member (=, 1)')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:DESCRIPTION_FI]).to eq('')
-          expect(row[:DESCRIPTION_EN]).to eq('')
+          expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
           expect(row.length).to be(10)
@@ -210,7 +210,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:PROPERTYTYPE]).to eq('definitionHierarchy')
           expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy 1')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
           expect(row[:MEMBERSSHEET]).to eq('Members_EDA-H1')
@@ -234,7 +234,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODE]).to eq('EDA-x2')
           expect(row[:RELATION]).to be_nil
           expect(row[:PREFLABEL_FI]).to eq('EDA member 2')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
           expect(row.length).to be(7)
@@ -274,7 +274,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:UNARYOPERATOR]).to eq('+')
           expect(row[:COMPARISONOPERATOR]).to eq('=')
           expect(row[:PREFLABEL_FI]).to eq('EDA member (=, 1)')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
           expect(row.length).to be(9)
@@ -369,9 +369,9 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODEVALUE]).to eq('MEM')
           expect(row[:BROADER]).to be_nil
           expect(row[:PREFLABEL_FI]).to eq('Member (fi, label)')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:DESCRIPTION_FI]).to eq('Member (fi, description)')
-          expect(row[:DESCRIPTION_EN]).to eq('')
+          expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
           expect(row.length).to be(10)
@@ -390,7 +390,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:PROPERTYTYPE]).to eq('definitionHierarchy')
           expect(row[:PREFLABEL_FI]).to eq('Hierarchy (fi, label)')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
           expect(row[:MEMBERSSHEET]).to eq('Members_HIER')
@@ -400,8 +400,6 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
     end
 
     it 'Sheet 4/4: Members_HIER' do
-      wb = workbooks.find { |it| it.workbook_name == workbook_name }
-
       expect_each_row(workbooks, workbook_name, 'Members_HIER', 1) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -411,7 +409,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODE]).to eq('MEM')
           expect(row[:RELATION]).to be_nil
           expect(row[:PREFLABEL_FI]).to eq('Member (fi, label)')
-          expect(row[:PREFLABEL_EN]).to eq('')
+          expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
           expect(row.length).to be(7)

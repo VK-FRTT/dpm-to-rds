@@ -7,18 +7,18 @@ module YtiRds
     STATUS = 'DRAFT'
     VERSION_IDENTIFIER = '2018-1'
 
-
     def self.versioned_code(code)
       "#{code}-#{VERSION_IDENTIFIER}"
     end
 
     def self.versioned_label(label)
-    "#{label} #{VERSION_IDENTIFIER}"
+      "#{label} #{VERSION_IDENTIFIER}"
     end
 
     class ExtensionTypes
       CALCULATION_HIERARCHY = 'calculationHierarchy'
       DEFINITION_HIERARCHY = 'definitionHierarchy'
+      DPM_DIMENSION = 'dpmDimension'
     end
   end
 end

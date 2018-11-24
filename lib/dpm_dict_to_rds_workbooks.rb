@@ -19,6 +19,10 @@ unless File.directory?(dir_name)
   FileUtils.mkdir_p(dir_name)
 end
 
-explicit_domains_and_hierarchies = DpmYtiMapping::ExplicitDomainsAndHierarchies.generate_workbooks(owner)
-WorkbookOutput::Writer.write_workbooks(explicit_domains_and_hierarchies)
+WorkbookOutput::Writer.write_workbooks(
+  DpmYtiMapping::ExplicitDomainsAndHierarchies.generate_workbooks(owner)
+)
 
+WorkbookOutput::Writer.write_workbooks(
+  DpmYtiMapping::Dimensions.generate_workbooks(owner)
+)

@@ -111,6 +111,14 @@ module YtiRds
         ]
       end
 
+      if extension_type == YtiRds::Constants::ExtensionTypes::DPM_DIMENSION
+        return [
+          columnInfo(:ID),
+          columnInfo(:CODE),
+          columnInfo(:DPMDOMAINREFERENCE)
+        ]
+      end
+
       raise "Unsupported extension type: #{extension_type}"
     end
 

@@ -9,13 +9,13 @@ module DpmYtiMapping
       def self.generate_workbook(domain_items)
         WorkbookModel::WorkbookData.new(
           "#{YtiRds::Constants.versioned_code('explicit-domains-list')}",
-          [codescheme_sheet_data, codes_sheet_data(domain_items)]
+          [codescheme_sd, codes_sd(domain_items)]
         )
       end
 
       private
 
-      def self.codescheme_sheet_data
+      def self.codescheme_sd
         row_data = {
           ID: SecureRandom.uuid,
           CODEVALUE: YtiRds::Constants.versioned_code('exp-doms'),
@@ -40,7 +40,7 @@ module DpmYtiMapping
         )
       end
 
-      def self.codes_sheet_data(domain_items)
+      def self.codes_sd(domain_items)
         # NOTE: Plain lexicographic sort is used for now
         # Probably natural sort (for handling inline numbers) should be taken into use..
         rows = domain_items

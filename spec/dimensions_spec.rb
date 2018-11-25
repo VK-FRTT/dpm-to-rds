@@ -1,6 +1,6 @@
 require 'rspec'
 
-RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
+RSpec.describe DpmYtiMapping::Dimensions do
 
   let(:owner) { DpmDbModel::Owner.by_name('Suomi SBR') }
   let(:workbooks) { DpmYtiMapping::Dimensions.generate_workbooks(owner) }
@@ -110,7 +110,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
         when 0
           expect(row[:ID].length).to be(36)
           expect(row[:CODE]).to eq('DIM')
-          expect(row[:DPMDOMAINREFERENCE]).to eq('DOM')
+          expect(row[:DPMDOMAINREFERENCE]).to eq('DOME')
           expect(row.length).to be(3)
 
         when 1

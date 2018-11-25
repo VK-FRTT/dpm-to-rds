@@ -119,6 +119,14 @@ module YtiRds
         ]
       end
 
+      if extension_type == YtiRds::Constants::ExtensionTypes::DPM_TYPED_DOMAIN
+        return [
+          columnInfo(:ID),
+          columnInfo(:CODE),
+          columnInfo(:DPMDATATYPE)
+        ]
+      end
+
       raise "Unsupported extension type: #{extension_type}"
     end
 

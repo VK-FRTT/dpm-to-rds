@@ -24,5 +24,9 @@ WorkbookOutput::Writer.write_workbooks(
 )
 
 WorkbookOutput::Writer.write_workbooks(
+  DpmYtiMapping::TypedDomains.generate_workbooks(owner)
+)
+
+WorkbookOutput::Writer.write_workbooks(
   DpmYtiMapping::Dimensions.generate_workbooks(owner)
 )

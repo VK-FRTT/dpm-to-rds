@@ -36,7 +36,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:LANGUAGECODE]).to eq('fi;sv;en')
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:CODEVALUE]).to eq('exp-doms-2018-1')
-          expect(row[:DEFAULTCODE]).to be_nil #TODO - this
+          expect(row[:DEFAULTCODE]).to be_nil
           expect(row[:PREFLABEL_FI]).to start_with('Explicit Domains 2018-1')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:DESCRIPTION_FI]).to start_with('Lista Explicit Domaineista')
@@ -58,11 +58,11 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
         when 0
           expect(row[:ID].length).to be(36)
           expect(row[:STATUS]).to eq('DRAFT')
-          expect(row[:CODEVALUE]).to eq('DOM')
+          expect(row[:CODEVALUE]).to eq('DOME')
           expect(row[:BROADER]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('Domain (fi, label)')
+          expect(row[:PREFLABEL_FI]).to eq('Explicit domain (fi, label)')
           expect(row[:PREFLABEL_EN]).to be_nil
-          expect(row[:DESCRIPTION_FI]).to eq('Domain (fi, description)')
+          expect(row[:DESCRIPTION_FI]).to eq('Explicit domain (fi, description)')
           expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-12-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to eq('2019-05-30')
@@ -312,8 +312,8 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
 
   end
 
-  context 'Workbook: domain-members-and-hierarchies DOM' do
-    let(:workbook_name) { 'domain-members-and-hierarchies-DOM-2018-1' }
+  context 'Workbook: domain-members-and-hierarchies DOME' do
+    let(:workbook_name) { 'domain-members-and-hierarchies-DOME-2018-1' }
 
     it 'should have 4 sheets' do
       expect_each_sheet(workbooks, workbook_name, 4) do |sheet, index|
@@ -342,9 +342,9 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:INFORMATIONDOMAIN]).to eq('P14')
           expect(row[:LANGUAGECODE]).to eq('fi;sv;en')
           expect(row[:STATUS]).to eq('DRAFT')
-          expect(row[:CODEVALUE]).to eq('DOM-2018-1')
+          expect(row[:CODEVALUE]).to eq('DOME-2018-1')
           expect(row[:DEFAULTCODE]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('Domain (fi, label) 2018-1')
+          expect(row[:PREFLABEL_FI]).to eq('Explicit domain (fi, label) 2018-1')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:DESCRIPTION_FI]).to be_nil
           expect(row[:DESCRIPTION_EN]).to be_nil

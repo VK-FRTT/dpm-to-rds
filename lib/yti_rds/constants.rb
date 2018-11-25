@@ -19,6 +19,7 @@ module YtiRds
       CALCULATION_HIERARCHY = 'calculationHierarchy'
       DEFINITION_HIERARCHY = 'definitionHierarchy'
       DPM_DIMENSION = 'dpmDimension'
+      DPM_TYPED_DOMAIN = 'dpmTypedDomain'
     end
   end
 end

@@ -127,6 +127,18 @@ module YtiRds
         ]
       end
 
+      if extension_type == YtiRds::Constants::ExtensionTypes::DPM_METRIC
+        return [
+          columnInfo(:ID),
+          columnInfo(:CODE),
+          columnInfo(:DPMDATATYPE),
+          columnInfo(:DPMFLOWTYPE),
+          columnInfo(:DPMBALANCETYPE),
+          columnInfo(:DPMDOMAINREFERENCE),
+          columnInfo(:DPMHIERARCHYREFERENCE),
+        ]
+      end
+
       raise "Unsupported extension type: #{extension_type}"
     end
 

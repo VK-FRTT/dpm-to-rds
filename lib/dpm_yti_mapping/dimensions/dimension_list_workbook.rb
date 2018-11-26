@@ -8,7 +8,7 @@ module DpmYtiMapping
 
       def self.generate_workbook_explicit(dimensions)
         WorkbookModel::WorkbookData.new(
-          "#{YtiRds::Constants.versioned_code('explicit-dimensions-list')}",
+          "#{YtiRds::Constants.versioned_code('explicit-dimensions')}",
           [
             explicit_dimension_codescheme_sd,
             codes_sd(dimensions),
@@ -21,7 +21,7 @@ module DpmYtiMapping
 
       def self.generate_workbook_typed(dimensions)
         WorkbookModel::WorkbookData.new(
-          "#{YtiRds::Constants.versioned_code('typed-dimensions-list')}",
+          "#{YtiRds::Constants.versioned_code('typed-dimensions')}",
           [
             typed_dimension_codescheme_sd,
             codes_sd(dimensions),

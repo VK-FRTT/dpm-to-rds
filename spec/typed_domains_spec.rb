@@ -9,8 +9,8 @@ RSpec.describe DpmYtiMapping::TypedDomains do
     expect(workbooks.length).to eq(1)
   end
 
-  context 'Workbook: typed-domains-list' do
-    let(:workbook_name) { 'typed-domains-list-2018-1' }
+  context 'Workbook: typed-domains' do
+    let(:workbook_name) { 'typed-domains-2018-1' }
 
     it 'should have 4 sheets' do
       expect_each_sheet(workbooks, workbook_name, 4) do |sheet, index|
@@ -35,7 +35,7 @@ RSpec.describe DpmYtiMapping::TypedDomains do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:INFORMATIONDOMAIN]).to eq('P14')
           expect(row[:LANGUAGECODE]).to eq('fi;sv;en')
           expect(row[:STATUS]).to eq('DRAFT')
@@ -50,7 +50,7 @@ RSpec.describe DpmYtiMapping::TypedDomains do
           expect(row[:CODESSHEET]).to eq('Codes')
           expect(row[:EXTENSIONSSHEET]).to eq('Extensions')
 
-          expect(row.length).to be(14)
+          expect(row.length).to eq(14)
         end
       end
     end
@@ -61,7 +61,7 @@ RSpec.describe DpmYtiMapping::TypedDomains do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:CODEVALUE]).to eq('DOMT')
           expect(row[:BROADER]).to be_nil
@@ -71,10 +71,10 @@ RSpec.describe DpmYtiMapping::TypedDomains do
           expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
-          expect(row.length).to be(10)
+          expect(row.length).to eq(10)
 
         when 1
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:CODEVALUE]).to eq('TDB')
           expect(row[:BROADER]).to be_nil
@@ -84,7 +84,7 @@ RSpec.describe DpmYtiMapping::TypedDomains do
           expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
-          expect(row.length).to be(10)
+          expect(row.length).to eq(10)
 
         when 2
           expect(row[:PREFLABEL_FI]).to eq('Typed domain (Date)')
@@ -120,7 +120,7 @@ RSpec.describe DpmYtiMapping::TypedDomains do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:CODEVALUE]).to eq('dpmTypedDomain')
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:PROPERTYTYPE]).to eq('dpmTypedDomain')
@@ -129,7 +129,7 @@ RSpec.describe DpmYtiMapping::TypedDomains do
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
           expect(row[:MEMBERSSHEET]).to eq('Members_dpmTypedDomain')
-          expect(row.length).to be(9)
+          expect(row.length).to eq(9)
         end
       end
     end
@@ -140,10 +140,10 @@ RSpec.describe DpmYtiMapping::TypedDomains do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('DOMT')
           expect(row[:DPMDATATYPE]).to eq('boolean')
-          expect(row.length).to be(3)
+          expect(row.length).to eq(3)
 
         when 1
           expect(row[:CODE]).to eq('TDB')
@@ -163,7 +163,7 @@ RSpec.describe DpmYtiMapping::TypedDomains do
 
         when 5
           expect(row[:CODE]).to eq('TDP')
-          expect(row[:DPMDATATYPE]).to eq('percentage')
+          expect(row[:DPMDATATYPE]).to eq('percent')
 
         when 6
           expect(row[:CODE]).to eq('TDR')

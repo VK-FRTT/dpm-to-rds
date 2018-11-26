@@ -8,7 +8,7 @@ module DpmYtiMapping
 
       def self.generate_workbook(domains)
         WorkbookModel::WorkbookData.new(
-          "#{YtiRds::Constants.versioned_code('typed-domains-list')}",
+          "#{YtiRds::Constants.versioned_code('typed-domains')}",
           [
             codescheme_sd,
             codes_sd(domains),
@@ -113,17 +113,10 @@ module DpmYtiMapping
 
       def self.dpm_domain_data_type_to_yti(dpm_data_type)
         unless ['Boolean', 'Date', 'Monetary', 'Integer', 'Percent', 'String', 'Decimal'].include?(dpm_data_type)
-          fail("Unsupported DPM Domain data type: [#{dpm_data_type}]")
+          raise("Unsupported DPM Domain data type: [#{dpm_data_type}]")
         end
 
-        yti_data_type = dpm_data_type.downcase
-
-        if yti_data_type == 'percent'
-          yti_data_type = 'percentage'
-        end
-
-        yti_data_type
-
+        dpm_data_type.downcase
       end
     end
   end

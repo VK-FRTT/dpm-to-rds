@@ -8,7 +8,7 @@ module DpmYtiMapping
 
       def self.generate_workbook(domain_items)
         WorkbookModel::WorkbookData.new(
-          "#{YtiRds::Constants.versioned_code('explicit-domains-list')}",
+          "#{YtiRds::Constants.versioned_code('explicit-domains')}",
           [codescheme_sd, codes_sd(domain_items)]
         )
       end

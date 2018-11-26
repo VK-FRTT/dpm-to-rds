@@ -20,6 +20,7 @@ module YtiRds
       DEFINITION_HIERARCHY = 'definitionHierarchy'
       DPM_DIMENSION = 'dpmDimension'
       DPM_TYPED_DOMAIN = 'dpmTypedDomain'
+      DPM_METRIC = 'dpmMetric'
     end
   end
 end

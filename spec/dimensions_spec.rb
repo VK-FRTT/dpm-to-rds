@@ -9,8 +9,8 @@ RSpec.describe DpmYtiMapping::Dimensions do
     expect(workbooks.length).to eq(2)
   end
 
-  context 'Workbook: explicit-dimensions-list' do
-    let(:workbook_name) { 'explicit-dimensions-list-2018-1' }
+  context 'Workbook: explicit-dimensions' do
+    let(:workbook_name) { 'explicit-dimensions-2018-1' }
 
     it 'should have 4 sheets' do
       expect_each_sheet(workbooks, workbook_name, 4) do |sheet, index|
@@ -35,7 +35,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:INFORMATIONDOMAIN]).to eq('P14')
           expect(row[:LANGUAGECODE]).to eq('fi;sv;en')
           expect(row[:STATUS]).to eq('DRAFT')
@@ -50,7 +50,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
           expect(row[:CODESSHEET]).to eq('Codes')
           expect(row[:EXTENSIONSSHEET]).to eq('Extensions')
 
-          expect(row.length).to be(14)
+          expect(row.length).to eq(14)
         end
       end
     end
@@ -61,7 +61,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:CODEVALUE]).to eq('DIM')
           expect(row[:BROADER]).to be_nil
@@ -71,7 +71,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
           expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
-          expect(row.length).to be(10)
+          expect(row.length).to eq(10)
 
         when 1
           expect(row[:CODEVALUE]).to eq('EDA-D1')
@@ -88,7 +88,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:CODEVALUE]).to eq('dpmDimension')
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:PROPERTYTYPE]).to eq('dpmDimension')
@@ -97,7 +97,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
           expect(row[:MEMBERSSHEET]).to eq('Members_dpmDimension')
-          expect(row.length).to be(9)
+          expect(row.length).to eq(9)
         end
       end
     end
@@ -108,10 +108,10 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('DIM')
           expect(row[:DPMDOMAINREFERENCE]).to eq('DOME')
-          expect(row.length).to be(3)
+          expect(row.length).to eq(3)
 
         when 1
           expect(row[:CODE]).to eq('EDA-D1')
@@ -125,8 +125,8 @@ RSpec.describe DpmYtiMapping::Dimensions do
     end
   end
 
-  context 'Workbook: typed-dimensions-list' do
-    let(:workbook_name) { 'typed-dimensions-list-2018-1' }
+  context 'Workbook: typed-dimensions' do
+    let(:workbook_name) { 'typed-dimensions-2018-1' }
 
     it 'should have 4 sheets' do
       expect_each_sheet(workbooks, workbook_name, 4) do |sheet, index|
@@ -151,7 +151,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:INFORMATIONDOMAIN]).to eq('P14')
           expect(row[:LANGUAGECODE]).to eq('fi;sv;en')
           expect(row[:STATUS]).to eq('DRAFT')
@@ -166,7 +166,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
           expect(row[:CODESSHEET]).to eq('Codes')
           expect(row[:EXTENSIONSSHEET]).to eq('Extensions')
 
-          expect(row.length).to be(14)
+          expect(row.length).to eq(14)
         end
       end
     end
@@ -177,7 +177,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:CODEVALUE]).to eq('TDB-D1')
           expect(row[:BROADER]).to be_nil
@@ -187,7 +187,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
           expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
-          expect(row.length).to be(10)
+          expect(row.length).to eq(10)
 
         when 1
           expect(row[:CODEVALUE]).to eq('TDB-D2')
@@ -201,7 +201,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:CODEVALUE]).to eq('dpmDimension')
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:PROPERTYTYPE]).to eq('dpmDimension')
@@ -210,7 +210,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
           expect(row[:MEMBERSSHEET]).to eq('Members_dpmDimension')
-          expect(row.length).to be(9)
+          expect(row.length).to eq(9)
         end
       end
     end
@@ -221,10 +221,10 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         case index
         when 0
-          expect(row[:ID].length).to be(36)
+          expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('TDB-D1')
           expect(row[:DPMDOMAINREFERENCE]).to eq('TDB')
-          expect(row.length).to be(3)
+          expect(row.length).to eq(3)
 
         when 1
           expect(row[:CODE]).to eq('TDB-D2')

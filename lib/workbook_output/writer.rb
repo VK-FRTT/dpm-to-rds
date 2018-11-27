@@ -1,6 +1,8 @@
 module WorkbookOutput
   class Writer
 
+    SUPPRESS_IDS = false
+
     def self.write_workbooks(workbook_models)
       workbook_models.each { |workbook_model| write_workbook(workbook_model) }
     end
@@ -13,7 +15,11 @@ module WorkbookOutput
 
       workbook_model.sheets.each { |sheet| add_sheet_to_workbook(sheet, wb) }
 
-      target_file_name = "../output/#{workbook_model.workbook_name}.xlsx"
+      if SUPPRESS_IDS
+        target_file_name = "../output/#{workbook_model.workbook_name}-no-ids.xlsx"
+      else
+        target_file_name = "../output/#{workbook_model.workbook_name}.xlsx"
+      end
 
       ap.serialize(target_file_name)
       puts "Wrote: #{target_file_name}"
@@ -31,7 +37,13 @@ module WorkbookOutput
 
           raise "No row value for column #{cn}" unless row_data.key?(cn)
 
-          row_data[cn]
+          cell_value = row_data[cn]
+
+          if SUPPRESS_IDS && cn == :ID
+            cell_value = nil
+          end
+
+          cell_value
         }
 
         sheet.add_row(cell_data)

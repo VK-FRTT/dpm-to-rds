@@ -98,7 +98,7 @@ module DpmYtiMapping
           {
             ID: SecureRandom.uuid,
             CODE: met.corresponding_member_code_number,
-            DPMDATATYPE: dpm_metric_data_type_to_yti(met.DataType),
+            DPMMETRICDATATYPE: dpm_metric_data_type_to_yti(met.DataType),
             DPMFLOWTYPE: dpm_metric_flow_type_to_yti(met.FlowType),
             DPMBALANCETYPE: dpm_metric_balance_type_to_yti(met.BalanceType),
             DPMDOMAINREFERENCE: met.referenced_domain ? met.referenced_domain.DomainCode : nil,
@@ -114,38 +114,53 @@ module DpmYtiMapping
       end
 
       def self.dpm_metric_data_type_to_yti(dpm_data_type)
-        unless ['Boolean', 'Date', 'Monetary', 'Integer', 'Percent', 'String', 'Decimal', 'Enumeration/Code', 'Lei', 'Isin'].include?(dpm_data_type)
+        mapping = {
+          'Enumeration/Code' => 'Enumeration',
+          'Boolean' => 'Boolean',
+          'Date' => 'Date',
+          'Integer' => 'Integer',
+          'Monetary' => 'Monetary',
+          'Percent' => 'Percentage',
+          'String' => 'String',
+          'Decimal' => 'Decimal',
+          'Lei' => 'Lei',
+          'Isin' => 'Isin'
+        }
+
+        yti_value = mapping[dpm_data_type]
+
+        if !mapping.key?(dpm_data_type) || yti_value.nil?
           raise("Unsupported DPM Metric data type: [#{dpm_data_type}]")
         end
 
-        dpm_data_type.downcase
+        yti_value
       end
 
       def self.dpm_metric_flow_type_to_yti(dpm_flow_type)
-        if dpm_flow_type == 'Stock'
-          return 'instant'
+        return nil if dpm_flow_type.nil?
+
+        mapping = {
+          'Stock' => 'Instant',
+          'Flow' => 'Duration'
+        }
+
+        yti_value = mapping[dpm_flow_type]
+
+        if !mapping.key?(dpm_flow_type) || yti_value.nil?
+          raise("Unsupported DPM Metric flow type: [#{dpm_flow_type}]")
         end
 
-        if dpm_flow_type == 'Flow'
-          return 'duration'
-        end
-
-        if dpm_flow_type.nil?
-          return nil
-        end
-
-        raise("Unsupported DPM Metric flow type: [#{dpm_flow_type}]")
-
+        yti_value
       end
 
       def self.dpm_metric_balance_type_to_yti(dpm_balance_type)
-        return nil if dpm_balance_type == nil
+        return nil if dpm_balance_type.nil?
 
         unless ['Credit', 'Debit'].include?(dpm_balance_type)
           raise("Unsupported DPM Metric balance type: [#{dpm_balance_type}]")
         end
 
-        dpm_balance_type.downcase
+        dpm_balance_type
       end
 
     end

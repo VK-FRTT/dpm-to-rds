@@ -100,7 +100,7 @@ module DpmYtiMapping
           {
             ID: SecureRandom.uuid,
             CODE: dom.DomainCode,
-            DPMDATATYPE: dpm_domain_data_type_to_yti(dom.DataType)
+            DPMDOMAINDATATYPE: dpm_domain_data_type_to_yti(dom.DataType)
           }
         end
 
@@ -112,11 +112,23 @@ module DpmYtiMapping
       end
 
       def self.dpm_domain_data_type_to_yti(dpm_data_type)
-        unless ['Boolean', 'Date', 'Monetary', 'Integer', 'Percent', 'String', 'Decimal'].include?(dpm_data_type)
+        mapping = {
+          'Boolean' => 'Boolean',
+          'Date' => 'Date',
+          'Integer' => 'Integer',
+          'Monetary' => 'Monetary',
+          'Percent' => 'Percentage',
+          'String' => 'String',
+          'Decimal' => 'Decimal'
+        }
+
+        yti_value = mapping[dpm_data_type]
+
+        if !mapping.key?(dpm_data_type) || yti_value.nil?
           raise("Unsupported DPM Domain data type: [#{dpm_data_type}]")
         end
 
-        dpm_data_type.downcase
+        yti_value
       end
     end
   end

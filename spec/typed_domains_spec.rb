@@ -142,36 +142,36 @@ RSpec.describe DpmYtiMapping::TypedDomains do
         when 0
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('DOMT')
-          expect(row[:DPMDATATYPE]).to eq('boolean')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('Boolean')
           expect(row.length).to eq(3)
 
         when 1
           expect(row[:CODE]).to eq('TDB')
-          expect(row[:DPMDATATYPE]).to eq('boolean')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('Boolean')
 
         when 2
           expect(row[:CODE]).to eq('TDD')
-          expect(row[:DPMDATATYPE]).to eq('date')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('Date')
 
         when 3
           expect(row[:CODE]).to eq('TDI')
-          expect(row[:DPMDATATYPE]).to eq('integer')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('Integer')
 
         when 4
           expect(row[:CODE]).to eq('TDM')
-          expect(row[:DPMDATATYPE]).to eq('monetary')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('Monetary')
 
         when 5
           expect(row[:CODE]).to eq('TDP')
-          expect(row[:DPMDATATYPE]).to eq('percent')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('Percentage')
 
         when 6
           expect(row[:CODE]).to eq('TDR')
-          expect(row[:DPMDATATYPE]).to eq('decimal')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('Decimal')
 
         when 7
           expect(row[:CODE]).to eq('TDS')
-          expect(row[:DPMDATATYPE]).to eq('string')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('String')
         end
       end
     end

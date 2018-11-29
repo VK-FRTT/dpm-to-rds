@@ -123,7 +123,7 @@ module YtiRds
         return [
           columnInfo(:ID),
           columnInfo(:CODE),
-          columnInfo(:DPMDATATYPE)
+          columnInfo(:DPMDOMAINDATATYPE)
         ]
       end
 
@@ -131,7 +131,7 @@ module YtiRds
         return [
           columnInfo(:ID),
           columnInfo(:CODE),
-          columnInfo(:DPMDATATYPE),
+          columnInfo(:DPMMETRICDATATYPE),
           columnInfo(:DPMFLOWTYPE),
           columnInfo(:DPMBALANCETYPE),
           columnInfo(:DPMDOMAINREFERENCE),

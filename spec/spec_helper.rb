@@ -42,3 +42,20 @@ def expect_each_row(workbooks, workbook_name, sheet_name, expected_row_count)
 
   sheet.rows.each_with_index { |row, index| yield row, index }
 end
+
+def codescheme_id_from(workbooks, codescheme_codevalue)
+  workbooks.each do |workbook|
+    workbook.sheets.each do |sheet|
+      next unless sheet.sheet_name == 'CodeSchemes'
+
+      row0 = sheet.rows[0]
+
+      if row0[:CODEVALUE] == codescheme_codevalue
+        return row0[:ID]
+      end
+
+    end
+  end
+
+  nil
+end

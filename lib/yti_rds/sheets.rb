@@ -45,7 +45,7 @@ module YtiRds
       ]
     end
 
-    def self.codes_with_shortname_columns
+    def self.codes_with_subcodescheme
       [
         columnInfo(:ID),
         columnInfo(:CODEVALUE),
@@ -57,7 +57,7 @@ module YtiRds
         columnInfo(:DESCRIPTION_EN),
         columnInfo(:STARTDATE),
         columnInfo(:ENDDATE),
-        columnInfo(:SHORTNAME)
+        columnInfo(:SUBCODESCHEME)
       ]
     end
 

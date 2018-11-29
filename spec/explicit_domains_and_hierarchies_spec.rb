@@ -66,7 +66,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-12-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to eq('2019-05-30')
-          expect(row[:SHORTNAME].length).to be > 10
+          expect(row[:SUBCODESCHEME]).to eq(codescheme_id_from(workbooks, 'DOME-2018-1'))
           expect(row.length).to eq(11)
 
         when 1
@@ -80,7 +80,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
-          expect(row[:SHORTNAME].length).to be > 10
+          expect(row[:SUBCODESCHEME]).to eq(codescheme_id_from(workbooks, 'EDA-2018-1'))
           expect(row.length).to eq(11)
         end
       end

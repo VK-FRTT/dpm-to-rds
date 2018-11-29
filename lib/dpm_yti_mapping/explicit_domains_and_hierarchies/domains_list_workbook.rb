@@ -59,13 +59,13 @@ module DpmYtiMapping
             DESCRIPTION_EN: d.concept.description_en,
             STARTDATE: d.concept.start_date_iso8601,
             ENDDATE: d.concept.end_date_iso8601,
-            SHORTNAME: "Members in: #{domain_item.domain_members_codescheme_uuid}" #Temporary hack until proper linking gets in place
+            SUBCODESCHEME: domain_item.domain_members_codescheme_uuid
           }
         end
 
         WorkbookModel::SheetData.new(
           YtiRds::Sheets.codes_name,
-          YtiRds::Sheets.codes_with_shortname_columns,
+          YtiRds::Sheets.codes_with_subcodescheme,
           rows
         )
       end

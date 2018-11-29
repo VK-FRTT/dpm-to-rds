@@ -21,7 +21,7 @@ module DpmYtiMapping
 
     def self.explicit_domain_items_for_owner(owner)
 
-      DpmDbModel::Domain.explicit.for_owner(owner).all.map { |domain|
+      DpmDbModel::Domain.explicit.notMet.for_owner(owner).all.map { |domain|
 
         member_items = member_items(domain)
 

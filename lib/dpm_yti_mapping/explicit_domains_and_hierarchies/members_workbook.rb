@@ -9,14 +9,12 @@ module DpmYtiMapping
       def self.generate_workbook(domain_item)
         sheets = [codescheme_sd(domain_item), codes_sd(domain_item), extensions_sd(domain_item)]
 
-        domain_item.hierarchy_items
-          .sort { |a, b| a.hierarchy_model.HierarchyCode <=> b.hierarchy_model.HierarchyCode }
-          .map do |hierarchy_item|
+        domain_item.hierarchies.map do |hierarchy_item|
           sheets << extension_members_sd(hierarchy_item)
         end
 
         WorkbookModel::WorkbookData.new(
-          "domain-members-and-hierarchies-#{YtiRds::Constants.versioned_code(domain_item.domain_model.DomainCode)}",
+          "domain-members-and-hierarchies-#{YtiRds::Constants.versioned_code(domain_item.domain.DomainCode)}",
           sheets
         )
       end
@@ -26,7 +24,7 @@ module DpmYtiMapping
 
 
       def self.codescheme_sd(domain_item)
-        dm = domain_item.domain_model
+        dm = domain_item.domain
 
         row_data = {
           ID: domain_item.domain_members_codescheme_uuid,
@@ -53,11 +51,8 @@ module DpmYtiMapping
       end
 
 
-      def self.codes_sd(domain_item)
-        rows = domain_item.member_items.map do |member_item|
-
-          m = member_item.member_model
-
+      def self.codes_sd(domain)
+        rows = domain.members.map do |m|
           {
             ID: SecureRandom.uuid,
             CODEVALUE: m.MemberCode,
@@ -81,9 +76,9 @@ module DpmYtiMapping
 
 
       def self.extensions_sd(domain_item)
-        rows = domain_item.hierarchy_items.map do |hierarchy_item|
+        rows = domain_item.hierarchies.map do |hierarchy_item|
 
-          h = hierarchy_item.hierarchy_model
+          h = hierarchy_item.hierarchy
 
           {
             ID: SecureRandom.uuid,
@@ -106,14 +101,9 @@ module DpmYtiMapping
       end
 
       def self.extension_members_sd(hierarchy_item)
-        h = hierarchy_item.hierarchy_model
+        h = hierarchy_item.hierarchy
 
-        rows = hierarchy_item
-                 .hierarchy_node_items
-                 .sort { |a, b| a.hierarchy_node_model.Order <=> b.hierarchy_node_model.Order }
-                 .map do |hierarchy_node_item|
-
-          hn = hierarchy_node_item.hierarchy_node_model
+        rows = hierarchy_item.nodes.map do |hn|
 
           row = {
             ID: SecureRandom.uuid,

@@ -19,6 +19,10 @@ module DpmDbModel
       def for_owner(owner)
         association_join(:concept).where(OwnerId: owner.OwnerID)
       end
+
+      def all_sorted_naturally_by_dimcode
+        Naturally.sort(all(), by: :DimensionCode)
+      end
     end
   end
 end

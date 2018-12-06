@@ -10,6 +10,10 @@ module DpmDbModel
       def for_domain(domain)
         where(DomainID: domain.DomainID)
       end
+
+      def all_sorted_naturally_by_hiercode
+        Naturally.sort(all(), by: :HierarchyCode)
+      end
     end
   end
 

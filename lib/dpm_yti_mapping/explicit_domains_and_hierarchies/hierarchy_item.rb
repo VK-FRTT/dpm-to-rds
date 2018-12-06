@@ -6,14 +6,14 @@ module DpmYtiMapping
 
     class HierarchyItem
 
-      attr_reader :hierarchy_model
+      attr_reader :hierarchy
       attr_reader :hierarchy_kind
-      attr_reader :hierarchy_node_items
+      attr_reader :nodes
 
-      def initialize(hierarchy_model, hierarchy_kind, hierarchy_node_items)
-        @hierarchy_model = hierarchy_model
+      def initialize(hierarchy, hierarchy_kind, nodes)
+        @hierarchy = hierarchy
         @hierarchy_kind = hierarchy_kind
-        @hierarchy_node_items = hierarchy_node_items
+        @nodes = nodes
       end
     end
   end

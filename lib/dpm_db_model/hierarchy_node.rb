@@ -12,6 +12,10 @@ module DpmDbModel
       def for_hierarchy(hierarchy)
         where(HierarchyID: hierarchy.HierarchyID)
       end
+
+      def all_sorted_by_order
+        all.sort { |a, b| a.Order <=> b.Order }
+      end
     end
   end
 end

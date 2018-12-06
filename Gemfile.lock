@@ -13,6 +13,7 @@ GEM
     json (2.1.0)
     mimemagic (0.3.2)
     mini_portile2 (2.3.0)
+    naturally (2.2.0)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     rspec (3.3.0)
@@ -43,6 +44,7 @@ PLATFORMS
 DEPENDENCIES
   axlsx (= 3.0.0.pre)
   dotenv
+  naturally (~> 2.2)
   rspec (~> 3.3.0)
   sequel (~> 5.14.0)
   simplecov

@@ -10,6 +10,10 @@ module DpmDbModel
       def for_domain(domain)
         where(DomainID: domain.DomainID)
       end
+
+      def all_sorted_naturally_by_memcode
+        Naturally.sort(all(), by: :MemberCode)
+      end
     end
   end
 end

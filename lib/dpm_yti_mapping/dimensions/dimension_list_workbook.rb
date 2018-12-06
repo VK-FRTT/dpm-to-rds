@@ -84,9 +84,7 @@ module DpmYtiMapping
       end
 
       def self.codes_sd(dimensions)
-        rows = dimensions
-                 .sort { |a, b| a.DimensionCode <=> b.DimensionCode }
-                 .map do |dim|
+        rows = dimensions.map do |dim|
           {
             ID: SecureRandom.uuid,
             CODEVALUE: dim.DimensionCode,
@@ -132,9 +130,7 @@ module DpmYtiMapping
 
       def self.dimension_extension_members_sd(dimensions)
 
-        rows = dimensions
-                 .sort { |a, b| a.DimensionCode <=> b.DimensionCode }
-                 .map do |dim|
+        rows = dimensions.map do |dim|
           {
             ID: SecureRandom.uuid,
             CODE: dim.DimensionCode,

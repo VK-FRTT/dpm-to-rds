@@ -5,8 +5,8 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
   let(:owner) { DpmDbModel::Owner.by_name('Suomi SBR') }
   let(:workbooks) { DpmYtiMapping::ExplicitDomainsAndHierarchies.generate_workbooks(owner) }
 
-  it 'should produce total 3 workbooks' do
-    expect(workbooks.length).to eq(3)
+  it 'should produce total 1 + 7 workbooks' do
+    expect(workbooks.length).to eq(1 + 7)
   end
 
   context 'Workbook: explicit-domains' do
@@ -51,7 +51,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
     end
 
     it 'Sheet 2/2: Codes' do
-      expect_each_row(workbooks, workbook_name, 'Codes', 2) do |row, index|
+      expect_each_row(workbooks, workbook_name, 'Codes', 1 + 6) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
@@ -82,6 +82,27 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:ENDDATE]).to be_nil
           expect(row[:SUBCODESCHEME]).to eq(codescheme_id_from(workbooks, 'EDA-2018-1'))
           expect(row.length).to eq(11)
+
+        when 2
+          expect(row[:CODEVALUE]).to eq('EDA1')
+          expect(row[:PREFLABEL_FI]).to eq('Explicit domain A1')
+
+        when 3
+          expect(row[:CODEVALUE]).to eq('EDA9')
+          expect(row[:PREFLABEL_FI]).to eq('Explicit domain A9')
+
+        when 4
+          expect(row[:CODEVALUE]).to eq('EDA10')
+          expect(row[:PREFLABEL_FI]).to eq('Explicit domain A10')
+
+        when 5
+          expect(row[:CODEVALUE]).to eq('EDA11')
+          expect(row[:PREFLABEL_FI]).to eq('Explicit domain A11')
+
+        when 6
+          expect(row[:CODEVALUE]).to eq('EDA20')
+          expect(row[:PREFLABEL_FI]).to eq('Explicit domain A20')
+
         end
       end
     end
@@ -90,8 +111,8 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
   context 'Workbook: domain-members-and-hierarchies EDA' do
     let(:workbook_name) { 'domain-members-and-hierarchies-EDA-2018-1' }
 
-    it 'should have 5 sheets' do
-      expect_each_sheet(workbooks, workbook_name, 5) do |sheet, index|
+    it 'should have 3+3 sheets' do
+      expect_each_sheet(workbooks, workbook_name, 3 + 3) do |sheet, index|
         expect(sheet).to be_an_instance_of(WorkbookModel::SheetData)
 
         case index
@@ -105,11 +126,13 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(sheet.sheet_name).to eq('Members_EDA-H1')
         when 4
           expect(sheet.sheet_name).to eq('Members_EDA-H2')
+        when 5
+          expect(sheet.sheet_name).to eq('Members_EDA-H10')
         end
       end
     end
 
-    it 'Sheet 1/5: CodeSchemes' do
+    it 'Sheet 1/6: CodeSchemes' do
       expect_each_row(workbooks, workbook_name, 'CodeSchemes', 1) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -135,7 +158,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
       end
     end
 
-    it 'Sheet 2/5: Codes' do
+    it 'Sheet 2/6: Codes' do
       expect_each_row(workbooks, workbook_name, 'Codes', 12) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -199,8 +222,8 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
       end
     end
 
-    it 'Sheet 3/5: Extensions' do
-      expect_each_row(workbooks, workbook_name, 'Extensions', 2) do |row, index|
+    it 'Sheet 3/6: Extensions' do
+      expect_each_row(workbooks, workbook_name, 'Extensions', 3) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
@@ -220,11 +243,16 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODEVALUE]).to eq('EDA-H2')
           expect(row[:PROPERTYTYPE]).to eq('calculationHierarchy')
           expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy 2')
+
+        when 2
+          expect(row[:CODEVALUE]).to eq('EDA-H10')
+          expect(row[:PROPERTYTYPE]).to eq('definitionHierarchy')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy 10')
         end
       end
     end
 
-    it 'Sheet 4/5: Members_EDA-H1' do
+    it 'Sheet 4/6: Members_EDA-H1' do
       expect_each_row(workbooks, workbook_name, 'Members_EDA-H1', 5) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -262,7 +290,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
       end
     end
 
-    it 'Sheet 5/5: Members_EDA-H2' do
+    it 'Sheet 5/6: Members_EDA-H2' do
       expect_each_row(workbooks, workbook_name, 'Members_EDA-H2', 5) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -310,6 +338,10 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
       end
     end
 
+    it 'Sheet 5/6: Members_EDA-H10' do
+      expect_each_row(workbooks, workbook_name, 'Members_EDA-H10', 0) do |row, index|
+      end
+    end
   end
 
   context 'Workbook: domain-members-and-hierarchies DOME' do

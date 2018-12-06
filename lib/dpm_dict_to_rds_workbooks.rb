@@ -1,6 +1,7 @@
 require 'fileutils'
 require 'sequel'
 require 'axlsx'
+require 'naturally'
 
 puts "Generating workbooks for YTI Reference Data import from Data Point Model database (SQLite)"
 

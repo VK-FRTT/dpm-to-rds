@@ -46,9 +46,7 @@ module DpmYtiMapping
       end
 
       def self.codes_sd(domains)
-        rows = domains
-                 .sort { |a, b| a.DomainCode <=> b.DomainCode }
-                 .map do |dom|
+        rows = domains.map do |dom|
           {
             ID: SecureRandom.uuid,
             CODEVALUE: dom.DomainCode,
@@ -94,9 +92,7 @@ module DpmYtiMapping
 
       def self.typed_domain_extension_members_sd(domains)
 
-        rows = domains
-                 .sort { |a, b| a.DomainCode <=> b.DomainCode }
-                 .map do |dom|
+        rows = domains.map do |dom|
           {
             ID: SecureRandom.uuid,
             CODE: dom.DomainCode,

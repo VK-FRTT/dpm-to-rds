@@ -74,6 +74,10 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row.length).to eq(10)
 
         when 1
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Enumeration: EDA)')
+          expect(row[:CODEVALUE]).to eq('3')
+
+        when 2
           expect(row[:ID].length).to eq(36)
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:CODEVALUE]).to eq('4')
@@ -86,49 +90,45 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:ENDDATE]).to be_nil
           expect(row.length).to eq(10)
 
-        when 2
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Decimal)')
-          expect(row[:CODEVALUE]).to eq('10')
-
         when 3
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Date)')
-          expect(row[:CODEVALUE]).to eq('16')
-
-        when 4
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Enumeration: EDA)')
-          expect(row[:CODEVALUE]).to eq('3')
-
-        when 5
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Isin)')
-          expect(row[:CODEVALUE]).to eq('12')
-
-        when 6
           expect(row[:PREFLABEL_FI]).to eq('MET member (Integer)')
           expect(row[:CODEVALUE]).to eq('6')
 
-        when 7
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Lei)')
-          expect(row[:CODEVALUE]).to eq('11')
-
-        when 8
+        when 4
           expect(row[:PREFLABEL_FI]).to eq('MET member (Monetary)')
           expect(row[:CODEVALUE]).to eq('7')
 
-        when 9
+        when 5
           expect(row[:PREFLABEL_FI]).to eq('MET member (Percentage)')
           expect(row[:CODEVALUE]).to eq('8')
 
-        when 10
+        when 6
           expect(row[:PREFLABEL_FI]).to eq('MET member (String)')
           expect(row[:CODEVALUE]).to eq('9')
+
+        when 7
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Decimal)')
+          expect(row[:CODEVALUE]).to eq('10')
+
+        when 8
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Lei)')
+          expect(row[:CODEVALUE]).to eq('11')
+
+        when 9
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Isin)')
+          expect(row[:CODEVALUE]).to eq('12')
+
+        when 10
+          expect(row[:PREFLABEL_FI]).to eq('MET member (String, Instant, Credit)')
+          expect(row[:CODEVALUE]).to eq('13')
 
         when 11
           expect(row[:PREFLABEL_FI]).to eq('MET member (String, Duration, Debit)')
           expect(row[:CODEVALUE]).to eq('14')
 
         when 12
-          expect(row[:PREFLABEL_FI]).to eq('MET member (String, Instant, Credit)')
-          expect(row[:CODEVALUE]).to eq('13')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Date)')
+          expect(row[:CODEVALUE]).to eq('16')
 
         end
       end
@@ -170,6 +170,14 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row.length).to eq(7)
 
         when 1
+          expect(row[:CODE]).to eq('3')
+          expect(row[:DPMMETRICDATATYPE]).to eq('Enumeration')
+          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMBALANCETYPE]).to be_nil
+          expect(row[:DPMDOMAINREFERENCE]).to eq('EDA')
+          expect(row[:DPMHIERARCHYREFERENCE]).to eq('EDA-H1')
+
+        when 2
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('4')
           expect(row[:DPMMETRICDATATYPE]).to eq('Boolean')
@@ -179,39 +187,7 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
           expect(row.length).to eq(7)
 
-        when 2
-          expect(row[:CODE]).to eq('10')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Decimal')
-          expect(row[:DPMFLOWTYPE]).to be_nil
-          expect(row[:DPMBALANCETYPE]).to be_nil
-          expect(row[:DPMDOMAINREFERENCE]).to be_nil
-          expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
-
         when 3
-          expect(row[:CODE]).to eq('16')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Date')
-          expect(row[:DPMFLOWTYPE]).to be_nil
-          expect(row[:DPMBALANCETYPE]).to be_nil
-          expect(row[:DPMDOMAINREFERENCE]).to be_nil
-          expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
-
-        when 4
-          expect(row[:CODE]).to eq('3')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Enumeration')
-          expect(row[:DPMFLOWTYPE]).to be_nil
-          expect(row[:DPMBALANCETYPE]).to be_nil
-          expect(row[:DPMDOMAINREFERENCE]).to eq('EDA')
-          expect(row[:DPMHIERARCHYREFERENCE]).to eq('EDA-H1')
-
-        when 5
-          expect(row[:CODE]).to eq('12')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Isin')
-          expect(row[:DPMFLOWTYPE]).to be_nil
-          expect(row[:DPMBALANCETYPE]).to be_nil
-          expect(row[:DPMDOMAINREFERENCE]).to be_nil
-          expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
-
-        when 6
           expect(row[:CODE]).to eq('6')
           expect(row[:DPMMETRICDATATYPE]).to eq('Integer')
           expect(row[:DPMFLOWTYPE]).to be_nil
@@ -219,15 +195,7 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
-        when 7
-          expect(row[:CODE]).to eq('11')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Lei')
-          expect(row[:DPMFLOWTYPE]).to be_nil
-          expect(row[:DPMBALANCETYPE]).to be_nil
-          expect(row[:DPMDOMAINREFERENCE]).to be_nil
-          expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
-
-        when 8
+        when 4
           expect(row[:CODE]).to eq('7')
           expect(row[:DPMMETRICDATATYPE]).to eq('Monetary')
           expect(row[:DPMFLOWTYPE]).to be_nil
@@ -235,7 +203,7 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
-        when 9
+        when 5
           expect(row[:CODE]).to eq('8')
           expect(row[:DPMMETRICDATATYPE]).to eq('Percentage')
           expect(row[:DPMFLOWTYPE]).to be_nil
@@ -243,11 +211,43 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
-        when 10
+        when 6
           expect(row[:CODE]).to eq('9')
           expect(row[:DPMMETRICDATATYPE]).to eq('String')
           expect(row[:DPMFLOWTYPE]).to be_nil
           expect(row[:DPMBALANCETYPE]).to be_nil
+          expect(row[:DPMDOMAINREFERENCE]).to be_nil
+          expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
+
+        when 7
+          expect(row[:CODE]).to eq('10')
+          expect(row[:DPMMETRICDATATYPE]).to eq('Decimal')
+          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMBALANCETYPE]).to be_nil
+          expect(row[:DPMDOMAINREFERENCE]).to be_nil
+          expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
+
+        when 8
+          expect(row[:CODE]).to eq('11')
+          expect(row[:DPMMETRICDATATYPE]).to eq('Lei')
+          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMBALANCETYPE]).to be_nil
+          expect(row[:DPMDOMAINREFERENCE]).to be_nil
+          expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
+
+        when 9
+          expect(row[:CODE]).to eq('12')
+          expect(row[:DPMMETRICDATATYPE]).to eq('Isin')
+          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMBALANCETYPE]).to be_nil
+          expect(row[:DPMDOMAINREFERENCE]).to be_nil
+          expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
+
+        when 10
+          expect(row[:CODE]).to eq('13')
+          expect(row[:DPMMETRICDATATYPE]).to eq('String')
+          expect(row[:DPMFLOWTYPE]).to eq('Instant')
+          expect(row[:DPMBALANCETYPE]).to eq('Credit')
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
@@ -260,12 +260,13 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
         when 12
-          expect(row[:CODE]).to eq('13')
-          expect(row[:DPMMETRICDATATYPE]).to eq('String')
-          expect(row[:DPMFLOWTYPE]).to eq('Instant')
-          expect(row[:DPMBALANCETYPE]).to eq('Credit')
+          expect(row[:CODE]).to eq('16')
+          expect(row[:DPMMETRICDATATYPE]).to eq('Date')
+          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
+
         end
       end
     end

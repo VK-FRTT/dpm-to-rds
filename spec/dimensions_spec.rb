@@ -56,7 +56,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
     end
 
     it 'Sheet 2/4: Codes' do
-      expect_each_row(workbooks, workbook_name, 'Codes', 3) do |row, index|
+      expect_each_row(workbooks, workbook_name, 'Codes', 1 + 3) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
@@ -78,6 +78,10 @@ RSpec.describe DpmYtiMapping::Dimensions do
 
         when 2
           expect(row[:CODEVALUE]).to eq('EDA-D2')
+
+        when 3
+        expect(row[:CODEVALUE]).to eq('EDA-D10')
+
         end
       end
     end
@@ -103,7 +107,7 @@ RSpec.describe DpmYtiMapping::Dimensions do
     end
 
     it 'Sheet 4/4: Members_dpmDimension' do
-      expect_each_row(workbooks, workbook_name, 'Members_dpmDimension', 3) do |row, index|
+      expect_each_row(workbooks, workbook_name, 'Members_dpmDimension', 1 + 3) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
@@ -120,6 +124,11 @@ RSpec.describe DpmYtiMapping::Dimensions do
         when 2
           expect(row[:CODE]).to eq('EDA-D2')
           expect(row[:DPMDOMAINREFERENCE]).to eq('EDA')
+
+        when 2
+          expect(row[:CODE]).to eq('EDA-D10')
+          expect(row[:DPMDOMAINREFERENCE]).to eq('EDA')
+
         end
       end
     end

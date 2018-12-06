@@ -7,8 +7,6 @@ module DpmYtiMapping
     class MetricsListWorkbook
 
       def self.generate_workbook(metrics)
-        metrics = metrics.sort { |a, b| a.corresponding_member.MemberCode <=> b.corresponding_member.MemberCode }
-
         WorkbookModel::WorkbookData.new(
           "#{YtiRds::Constants.versioned_code('metrics')}",
           [

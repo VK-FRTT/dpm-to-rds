@@ -9,7 +9,7 @@ module DpmYtiMapping
 
       workbooks << log_generated_workbook(
         DpmYtiMapping::Metrics::MetricsListWorkbook.generate_workbook(
-          DpmDbModel::Metric.for_owner(owner).all
+          DpmDbModel::Metric.for_owner(owner).all_sorted_naturally_by_member_code_number
         )
       )
 

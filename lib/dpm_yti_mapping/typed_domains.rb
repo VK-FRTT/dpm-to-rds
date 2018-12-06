@@ -9,7 +9,7 @@ module DpmYtiMapping
 
       workbooks << log_generated_workbook(
         DpmYtiMapping::TypedDomains::TypedDomainsListWorkbook.generate_workbook(
-          DpmDbModel::Domain.typed.for_owner(owner).all
+          DpmDbModel::Domain.typed.for_owner(owner).all_sorted_naturally_by_domcode
         )
       )
 

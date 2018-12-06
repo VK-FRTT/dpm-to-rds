@@ -16,6 +16,11 @@ module DpmDbModel
       def for_owner(owner)
         association_join(corresponding_member: :concept).where(OwnerId: owner.OwnerID)
       end
+
+      def all_sorted_naturally_by_member_code_number
+        Naturally.sort(all(), by: :corresponding_member_code_number)
+      end
+
     end
   end
 end

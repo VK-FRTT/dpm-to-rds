@@ -16,6 +16,10 @@ module DpmDbModel
         where(IsTypedDimension: true)
       end
 
+      def notMet()
+        exclude(DimensionCode: 'MET')
+      end
+
       def for_owner(owner)
         association_join(:concept).where(OwnerId: owner.OwnerID)
       end

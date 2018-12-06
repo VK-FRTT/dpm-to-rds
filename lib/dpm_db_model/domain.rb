@@ -15,6 +15,10 @@ module DpmDbModel
         where(IsTypedDomain: true)
       end
 
+      def notMet
+        exclude(DomainCode: 'MET')
+      end
+
       def for_owner(owner)
         association_join(:concept).where(OwnerId: owner.OwnerID)
       end

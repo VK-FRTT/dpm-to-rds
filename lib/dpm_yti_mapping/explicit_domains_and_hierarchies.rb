@@ -21,7 +21,7 @@ module DpmYtiMapping
 
     def self.explicit_domain_items_for_owner(owner)
 
-      DpmDbModel::Domain.explicit.for_owner(owner).all_sorted_naturally_by_domcode.map { |domain|
+      DpmDbModel::Domain.explicit.notMet.for_owner(owner).all_sorted_naturally_by_domcode.map { |domain|
 
         members = DpmDbModel::Member.for_domain(domain).all_sorted_naturally_by_memcode
 

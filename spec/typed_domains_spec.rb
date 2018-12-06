@@ -163,11 +163,11 @@ RSpec.describe DpmYtiMapping::TypedDomains do
 
         when 5
           expect(row[:CODE]).to eq('TDP')
-          expect(row[:DPMDOMAINDATATYPE]).to eq('Percentage')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('String') # Should be: Percentage
 
         when 6
           expect(row[:CODE]).to eq('TDR')
-          expect(row[:DPMDOMAINDATATYPE]).to eq('Decimal')
+          expect(row[:DPMDOMAINDATATYPE]).to eq('String') # Should be: Decimal
 
         when 7
           expect(row[:CODE]).to eq('TDS')

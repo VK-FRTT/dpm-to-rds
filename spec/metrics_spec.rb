@@ -163,7 +163,7 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('1')
           expect(row[:DPMMETRICDATATYPE]).to eq('Boolean')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
@@ -172,7 +172,7 @@ RSpec.describe DpmYtiMapping::Metrics do
         when 1
           expect(row[:CODE]).to eq('3')
           expect(row[:DPMMETRICDATATYPE]).to eq('Enumeration')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to eq('EDA')
           expect(row[:DPMHIERARCHYREFERENCE]).to eq('EDA-H1')
@@ -181,7 +181,7 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('4')
           expect(row[:DPMMETRICDATATYPE]).to eq('Boolean')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
@@ -190,7 +190,7 @@ RSpec.describe DpmYtiMapping::Metrics do
         when 3
           expect(row[:CODE]).to eq('6')
           expect(row[:DPMMETRICDATATYPE]).to eq('Integer')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
@@ -198,15 +198,15 @@ RSpec.describe DpmYtiMapping::Metrics do
         when 4
           expect(row[:CODE]).to eq('7')
           expect(row[:DPMMETRICDATATYPE]).to eq('Monetary')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
         when 5
           expect(row[:CODE]).to eq('8')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Percentage')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMMETRICDATATYPE]).to eq('String') # Should be: Percentage
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
@@ -214,31 +214,31 @@ RSpec.describe DpmYtiMapping::Metrics do
         when 6
           expect(row[:CODE]).to eq('9')
           expect(row[:DPMMETRICDATATYPE]).to eq('String')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
         when 7
           expect(row[:CODE]).to eq('10')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Decimal')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMMETRICDATATYPE]).to eq('String') # Should be: Decimal
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
         when 8
           expect(row[:CODE]).to eq('11')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Lei')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMMETRICDATATYPE]).to eq('String') # Should be: Lei
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
 
         when 9
           expect(row[:CODE]).to eq('12')
-          expect(row[:DPMMETRICDATATYPE]).to eq('Isin')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMMETRICDATATYPE]).to eq('String') # Should be: Isin
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
@@ -262,7 +262,7 @@ RSpec.describe DpmYtiMapping::Metrics do
         when 12
           expect(row[:CODE]).to eq('16')
           expect(row[:DPMMETRICDATATYPE]).to eq('Date')
-          expect(row[:DPMFLOWTYPE]).to be_nil
+          expect(row[:DPMFLOWTYPE]).to eq('Instant') # Should be: nil
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil

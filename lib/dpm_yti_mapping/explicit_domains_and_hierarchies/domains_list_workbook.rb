@@ -9,7 +9,11 @@ module DpmYtiMapping
       def self.generate_workbook(domain_items)
         WorkbookModel::WorkbookData.new(
           "#{YtiRds::Constants.versioned_code('explicit-domains')}",
-          [codescheme_sd, codes_sd(domain_items)]
+          [
+            codescheme_sd,
+            codes_sd(domain_items),
+            explicit_domain_extension_sd
+          ]
         )
       end
 
@@ -30,7 +34,7 @@ module DpmYtiMapping
           STARTDATE: nil,
           ENDDATE: nil,
           CODESSHEET: YtiRds::Sheets.codes_name,
-          EXTENSIONSSHEET: nil
+          EXTENSIONSSHEET: YtiRds::Sheets.extensions_name
         }
 
         WorkbookModel::SheetData.new(
@@ -65,6 +69,27 @@ module DpmYtiMapping
           rows
         )
       end
+
+      def self.explicit_domain_extension_sd
+        row = {
+          ID: SecureRandom.uuid,
+          CODEVALUE: YtiRds::Constants::ExtensionTypes::DPM_EXPLICIT_DOMAIN,
+          STATUS: YtiRds::Constants::STATUS,
+          PROPERTYTYPE: YtiRds::Constants::ExtensionTypes::DPM_EXPLICIT_DOMAIN,
+          PREFLABEL_FI: nil,
+          PREFLABEL_EN: nil,
+          STARTDATE: nil,
+          ENDDATE: nil,
+          MEMBERSSHEET: nil
+        }
+
+        WorkbookModel::SheetData.new(
+          YtiRds::Sheets.extensions_name,
+          YtiRds::Sheets.extensions_columns,
+          [row]
+        )
+      end
+
     end
   end
 end

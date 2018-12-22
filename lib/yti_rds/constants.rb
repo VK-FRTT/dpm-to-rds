@@ -18,9 +18,10 @@ module YtiRds
     class ExtensionTypes
       CALCULATION_HIERARCHY = 'calculationHierarchy'
       DEFINITION_HIERARCHY = 'definitionHierarchy'
-      DPM_DIMENSION = 'dpmDimension'
-      DPM_TYPED_DOMAIN = 'dpmTypedDomain'
       DPM_METRIC = 'dpmMetric'
+      DPM_EXPLICIT_DOMAIN = 'dpmExplicitDomain'
+      DPM_TYPED_DOMAIN = 'dpmTypedDomain'
+      DPM_DIMENSION = 'dpmDimension'
     end
   end
 end

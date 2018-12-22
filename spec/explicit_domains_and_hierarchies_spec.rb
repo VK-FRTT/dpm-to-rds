@@ -12,8 +12,8 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
   context 'Workbook: explicit-domains' do
     let(:workbook_name) { 'explicit-domains-2018-1' }
 
-    it 'should have 2 sheets' do
-      expect_each_sheet(workbooks, workbook_name, 2) do |sheet, index|
+    it 'should have 3 sheets' do
+      expect_each_sheet(workbooks, workbook_name, 3) do |sheet, index|
         expect(sheet).to be_an_instance_of(WorkbookModel::SheetData)
 
         case index
@@ -21,11 +21,13 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(sheet.sheet_name).to eq('CodeSchemes')
         when 1
           expect(sheet.sheet_name).to eq('Codes')
+        when 2
+          expect(sheet.sheet_name).to eq('Extensions')
         end
       end
     end
 
-    it 'Sheet 1/2: CodeSchemes' do
+    it 'Sheet 1/3: CodeSchemes' do
       expect_each_row(workbooks, workbook_name, 'CodeSchemes', 1) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -44,13 +46,13 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
           expect(row[:CODESSHEET]).to eq('Codes')
-          expect(row[:EXTENSIONSSHEET]).to be_nil
+          expect(row[:EXTENSIONSSHEET]).to eq('Extensions')
           expect(row.length).to eq(14)
         end
       end
     end
 
-    it 'Sheet 2/2: Codes' do
+    it 'Sheet 2/3: Codes' do
       expect_each_row(workbooks, workbook_name, 'Codes', 1 + 6) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -103,6 +105,26 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:CODEVALUE]).to eq('EDA20')
           expect(row[:PREFLABEL_FI]).to eq('Explicit domain A20')
 
+        end
+      end
+    end
+
+    it 'Sheet 3/3: Extensions' do
+      expect_each_row(workbooks, workbook_name, 'Extensions', 1) do |row, index|
+        expect(row).to be_an_instance_of(Hash)
+
+        case index
+        when 0
+          expect(row[:ID].length).to eq(36)
+          expect(row[:CODEVALUE]).to eq('dpmExplicitDomain')
+          expect(row[:STATUS]).to eq('DRAFT')
+          expect(row[:PROPERTYTYPE]).to eq('dpmExplicitDomain')
+          expect(row[:PREFLABEL_FI]).to be_nil
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:STARTDATE]).to be_nil
+          expect(row[:ENDDATE]).to be_nil
+          expect(row[:MEMBERSSHEET]).to be_nil
+          expect(row.length).to eq(9)
         end
       end
     end

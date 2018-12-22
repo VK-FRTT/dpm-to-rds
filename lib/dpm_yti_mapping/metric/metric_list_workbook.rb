@@ -35,7 +35,7 @@ module DpmYtiMapping
           STARTDATE: nil,
           ENDDATE: nil,
           CODESSHEET: YtiRds::Sheets.codes_name,
-          EXTENSIONSSHEET: YtiRds::Sheets.extensions_name,
+          EXTENSIONSSHEET: YtiRds::Sheets.extensions_name
         }
 
         WorkbookModel::SheetData.new(

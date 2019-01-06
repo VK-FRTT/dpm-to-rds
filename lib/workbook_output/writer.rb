@@ -28,25 +28,29 @@ module WorkbookOutput
     def self.add_sheet_to_workbook(sheet_data, workbook)
       sheet = workbook.add_worksheet(:name => sheet_data.sheet_name)
 
-      sheet.add_row(sheet_data.columns.map { |column| column.column_name })
+      row_types = sheet_data.columns.map { |column| :text }
+
+      header_values = sheet_data.columns.map { |column| column.column_name }
+
+      sheet.add_row(header_values, :types => row_types)
 
       sheet_data.rows.each { |row_data|
 
-        cell_data = sheet_data.columns.map { |column|
-          cn = column.column_name
+        row_values = sheet_data.columns.map { |column|
+          column_name = column.column_name
 
-          raise "No row value for column #{cn}" unless row_data.key?(cn)
+          raise "No row value for column #{column_name}" unless row_data.key?(column_name)
 
-          cell_value = row_data[cn]
+          cell_value = row_data[column_name]
 
-          if SUPPRESS_IDS && cn == :ID
+          if SUPPRESS_IDS && column_name == :ID
             cell_value = nil
           end
 
           cell_value
         }
 
-        sheet.add_row(cell_data)
+        sheet.add_row(row_values, :types => row_types)
       }
     end
   end

@@ -28,11 +28,13 @@ module WorkbookOutput
     def self.add_sheet_to_workbook(sheet_data, workbook)
       sheet = workbook.add_worksheet(:name => sheet_data.sheet_name)
 
+      bold_style = sheet.styles.add_style(:b => true)
+
       row_types = sheet_data.columns.map { |column| :text }
 
       header_values = sheet_data.columns.map { |column| column.column_name }
 
-      sheet.add_row(header_values, :types => row_types)
+      sheet.add_row(header_values, types: row_types, style: bold_style)
 
       sheet_data.rows.each { |row_data|
 
@@ -50,7 +52,7 @@ module WorkbookOutput
           cell_value
         }
 
-        sheet.add_row(row_values, :types => row_types)
+        sheet.add_row(row_values, types: row_types)
       }
     end
   end

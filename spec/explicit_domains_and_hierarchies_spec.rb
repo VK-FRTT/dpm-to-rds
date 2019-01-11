@@ -369,8 +369,8 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
   context 'Workbook: domain-members-and-hierarchies DOME' do
     let(:workbook_name) { 'domain-members-and-hierarchies-DOME-2018-1' }
 
-    it 'should have 4 sheets' do
-      expect_each_sheet(workbooks, workbook_name, 4) do |sheet, index|
+    it 'should have 5 sheets' do
+      expect_each_sheet(workbooks, workbook_name, 5) do |sheet, index|
         expect(sheet).to be_an_instance_of(WorkbookModel::SheetData)
 
         case index
@@ -381,12 +381,14 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
         when 2
           expect(sheet.sheet_name).to eq('Extensions')
         when 3
+          expect(sheet.sheet_name).to eq('Members_EDA-H1')
+        when 4
           expect(sheet.sheet_name).to eq('Members_HIER')
         end
       end
     end
 
-    it 'Sheet 1/4: CodeSchemes' do
+    it 'Sheet 1/5: CodeSchemes' do
       expect_each_row(workbooks, workbook_name, 'CodeSchemes', 1) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -412,12 +414,25 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
       end
     end
 
-    it 'Sheet 2/4: Codes' do
-      expect_each_row(workbooks, workbook_name, 'Codes', 1) do |row, index|
+    it 'Sheet 2/5: Codes' do
+      expect_each_row(workbooks, workbook_name, 'Codes', 2) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
         when 0
+          expect(row[:ID].length).to eq(36)
+          expect(row[:STATUS]).to eq('DRAFT')
+          expect(row[:CODEVALUE]).to eq('EDA-x1')
+          expect(row[:BROADER]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('DOME member duplicating EDA code')
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:DESCRIPTION_FI]).to eq('')
+          expect(row[:DESCRIPTION_EN]).to be_nil
+          expect(row[:STARTDATE]).to eq('2018-12-31') # DM issue: date is written wrongly to DB
+          expect(row[:ENDDATE]).to be_nil
+          expect(row.length).to eq(10)
+
+        when 1
           expect(row[:ID].length).to eq(36)
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:CODEVALUE]).to eq('MEM')
@@ -430,15 +445,29 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:ENDDATE]).to be_nil
           expect(row.length).to eq(10)
         end
+
+
       end
     end
 
-    it 'Sheet 3/4: Extensions' do
-      expect_each_row(workbooks, workbook_name, 'Extensions', 1) do |row, index|
+    it 'Sheet 3/5: Extensions' do
+      expect_each_row(workbooks, workbook_name, 'Extensions', 2) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
         when 0
+          expect(row[:ID].length).to eq(36)
+          expect(row[:CODEVALUE]).to eq('EDA-H1')
+          expect(row[:STATUS]).to eq('DRAFT')
+          expect(row[:PROPERTYTYPE]).to eq('definitionHierarchy')
+          expect(row[:PREFLABEL_FI]).to eq('DOME hierarchy duplicating EDA code')
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:STARTDATE]).to eq('2018-12-31') # DM issue: date is written wrongly to DB
+          expect(row[:ENDDATE]).to be_nil
+          expect(row[:MEMBERSSHEET]).to eq('Members_EDA-H1')
+          expect(row.length).to eq(9)
+
+        when 1
           expect(row[:ID].length).to eq(36)
           expect(row[:CODEVALUE]).to eq('HIER')
           expect(row[:STATUS]).to eq('DRAFT')
@@ -453,7 +482,14 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
       end
     end
 
-    it 'Sheet 4/4: Members_HIER' do
+    it 'Sheet 4/5: Members_EDA-H1' do
+      expect_each_row(workbooks, workbook_name, 'Members_EDA-H1', 0) do |row, index|
+        expect(row).to be_an_instance_of(Hash)
+
+      end
+    end
+
+    it 'Sheet 5/5: Members_HIER' do
       expect_each_row(workbooks, workbook_name, 'Members_HIER', 1) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 

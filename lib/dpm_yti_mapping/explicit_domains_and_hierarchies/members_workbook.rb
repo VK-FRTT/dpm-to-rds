@@ -14,7 +14,7 @@ module DpmYtiMapping
         end
 
         WorkbookModel::WorkbookData.new(
-          "domain-members-and-hierarchies-#{YtiRds::Constants.versioned_code(domain_item.domain.DomainCode)}",
+          "ed-#{YtiRds::Constants.versioned_code(domain_item.domain.DomainCode)}-members-and-hierarchies",
           sheets
         )
       end

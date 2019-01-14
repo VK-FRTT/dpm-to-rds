@@ -25,7 +25,10 @@ module DpmYtiMapping
 
         members = DpmDbModel::Member.for_domain(domain).all_sorted_naturally_by_memcode
 
-        hierarchy_items = DpmDbModel::Hierarchy.for_domain(domain).all_sorted_naturally_by_hiercode.map { |hierarchy|
+        all_domain_hierarchies = DpmDbModel::Hierarchy.for_domain(domain).all_sorted_naturally_by_hiercode
+
+        hierarchies = exclude_selected_hierarchies(domain, all_domain_hierarchies)
+        hierarchy_items = hierarchies.map { |hierarchy|
 
           nodes = DpmDbModel::HierarchyNode.for_hierarchy(hierarchy).all_sorted_by_order
           hierarchy_kind = resolve_hierarchy_kind(nodes)
@@ -80,6 +83,18 @@ module DpmYtiMapping
       return false if operator.nil?
       return false if operator.empty?
       true
+    end
+
+    def self.exclude_selected_hierarchies(domain, all_domain_hierarchies)
+      if domain.DomainCode == 'PA'
+        all_domain_hierarchies.select { |item| !['PA1', 'PA2'].include?(item.HierarchyCode) }
+
+      elsif domain.DomainCode == 'MC'
+        all_domain_hierarchies.select { |item| !['MC65', 'MC13', 'MC14', 'MC10', 'MC42', 'MC24', 'MC2', 'MC41'].include?(item.HierarchyCode) }
+
+      else
+        all_domain_hierarchies
+      end
     end
   end
 end

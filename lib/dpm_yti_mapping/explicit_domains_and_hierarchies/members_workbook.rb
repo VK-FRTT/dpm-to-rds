@@ -7,7 +7,11 @@ module DpmYtiMapping
     class MembersWorkbook
 
       def self.generate_workbook(domain_item)
-        sheets = [codescheme_sd(domain_item), codes_sd(domain_item), extensions_sd(domain_item)]
+        sheets = [
+          codescheme_sd(domain_item),
+          codes_sd(domain_item),
+          extensions_sd(domain_item)
+        ]
 
         domain_item.hierarchies.map do |hierarchy_item|
           sheets << extension_members_sd(hierarchy_item)

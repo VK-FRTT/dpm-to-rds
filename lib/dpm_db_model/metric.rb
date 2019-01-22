@@ -9,7 +9,7 @@ module DpmDbModel
     many_to_one :referenced_hierarchy, class: 'DpmDbModel::Hierarchy', key: :ReferencedHierarchyID, primary_key: :HierarchyID, read_only: true
 
     def corresponding_member_code_number
-      corresponding_member.MemberCode.match(/[\D](\d+)\z/).values_at(1)[0]
+      corresponding_member.code_number
     end
 
     dataset_module do

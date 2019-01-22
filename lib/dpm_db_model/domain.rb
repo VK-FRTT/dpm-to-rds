@@ -23,6 +23,10 @@ module DpmDbModel
         association_join(:concept).where(OwnerId: owner.OwnerID)
       end
 
+      def met_domain
+        explicit().where(DomainCode: 'MET')
+      end
+
       def all_sorted_naturally_by_domcode
         Naturally.sort(all(), by: :DomainCode)
       end

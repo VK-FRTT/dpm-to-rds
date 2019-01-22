@@ -12,8 +12,8 @@ RSpec.describe DpmYtiMapping::Metrics do
   context 'Workbook: metrics' do
     let(:workbook_name) { 'metrics-2018-1' }
 
-    it 'should have 4 sheets' do
-      expect_each_sheet(workbooks, workbook_name, 4) do |sheet, index|
+    it 'should have 7 sheets' do
+      expect_each_sheet(workbooks, workbook_name, 7) do |sheet, index|
         expect(sheet).to be_an_instance_of(WorkbookModel::SheetData)
 
         case index
@@ -25,11 +25,17 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(sheet.sheet_name).to eq('Extensions')
         when 3
           expect(sheet.sheet_name).to eq('Members_dpmMetric')
+        when 4
+          expect(sheet.sheet_name).to eq('Members_MET1')
+        when 5
+          expect(sheet.sheet_name).to eq('Members_MET10')
+        when 6
+          expect(sheet.sheet_name).to eq('Members_METHIER')
         end
       end
     end
 
-    it 'Sheet 1/4: CodeSchemes' do
+    it 'Sheet 1/7: CodeSchemes' do
       expect_each_row(workbooks, workbook_name, 'CodeSchemes', 1) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -55,7 +61,7 @@ RSpec.describe DpmYtiMapping::Metrics do
       end
     end
 
-    it 'Sheet 2/4: Codes' do
+    it 'Sheet 2/7: Codes' do
       expect_each_row(workbooks, workbook_name, 'Codes', 13) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -65,9 +71,9 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:STATUS]).to eq('DRAFT')
           expect(row[:CODEVALUE]).to eq('1')
           expect(row[:BROADER]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (fi, label)')
+          expect(row[:PREFLABEL_FI]).to eq('Metric member (fi, label)')
           expect(row[:PREFLABEL_EN]).to be_nil
-          expect(row[:DESCRIPTION_FI]).to eq('MET member (fi, description)')
+          expect(row[:DESCRIPTION_FI]).to eq('Metric member (fi, description)')
           expect(row[:DESCRIPTION_EN]).to be_nil
           expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
           expect(row[:ENDDATE]).to be_nil
@@ -134,8 +140,8 @@ RSpec.describe DpmYtiMapping::Metrics do
       end
     end
 
-    it 'Sheet 3/4: Extensions' do
-      expect_each_row(workbooks, workbook_name, 'Extensions', 1) do |row, index|
+    it 'Sheet 3/7: Extensions' do
+      expect_each_row(workbooks, workbook_name, 'Extensions', 4) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
@@ -150,11 +156,44 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:ENDDATE]).to be_nil
           expect(row[:MEMBERSSHEET]).to eq('Members_dpmMetric')
           expect(row.length).to eq(9)
+
+        when 1
+          expect(row[:ID].length).to eq(36)
+          expect(row[:CODEVALUE]).to eq('MET1')
+          expect(row[:PROPERTYTYPE]).to eq('definitionHierarchy')
+          expect(row[:PREFLABEL_FI]).to eq('Metric hierarchy 1')
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
+          expect(row[:ENDDATE]).to be_nil
+          expect(row[:MEMBERSSHEET]).to eq('Members_MET1')
+          expect(row.length).to eq(9)
+
+        when 2
+          expect(row[:ID].length).to eq(36)
+          expect(row[:CODEVALUE]).to eq('MET10')
+          expect(row[:PROPERTYTYPE]).to eq('definitionHierarchy')
+          expect(row[:PREFLABEL_FI]).to eq('Metric hierarchy 10')
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
+          expect(row[:ENDDATE]).to be_nil
+          expect(row[:MEMBERSSHEET]).to eq('Members_MET10')
+          expect(row.length).to eq(9)
+
+        when 3
+          expect(row[:ID].length).to eq(36)
+          expect(row[:CODEVALUE]).to eq('METHIER')
+          expect(row[:PROPERTYTYPE]).to eq('definitionHierarchy')
+          expect(row[:PREFLABEL_FI]).to eq('Metric hierarchy (fi, label)')
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:STARTDATE]).to eq('2018-10-31') # DM issue: date is written wrongly to DB
+          expect(row[:ENDDATE]).to be_nil
+          expect(row[:MEMBERSSHEET]).to eq('Members_METHIER')
+          expect(row.length).to eq(9)
         end
       end
     end
 
-    it 'Sheet 4/4: Members_dpmMetric' do
+    it 'Sheet 4/7: Members_dpmMetric' do
       expect_each_row(workbooks, workbook_name, 'Members_dpmMetric', 13) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
@@ -266,6 +305,121 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:DPMBALANCETYPE]).to be_nil
           expect(row[:DPMDOMAINREFERENCE]).to be_nil
           expect(row[:DPMHIERARCHYREFERENCE]).to be_nil
+        end
+      end
+    end
+
+    it 'Sheet 5/7: Members_MET1' do
+      expect_each_row(workbooks, workbook_name, 'Members_MET1', 10) do |row, index|
+        expect(row).to be_an_instance_of(Hash)
+
+        case index
+        when 0
+          expect(row[:ID].length).to eq(36)
+          expect(row[:CODE]).to eq('9')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (String)')
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:STARTDATE]).to be_nil
+          expect(row[:ENDDATE]).to be_nil
+          expect(row.length).to eq(7)
+
+        when 1
+          expect(row[:CODE]).to eq('10')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Decimal)')
+
+        when 2
+          expect(row[:CODE]).to eq('11')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Lei)')
+
+        when 3
+          expect(row[:CODE]).to eq('12')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Isin)')
+
+        when 4
+          expect(row[:CODE]).to eq('3')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Enumeration: EDA)')
+
+        when 5
+          expect(row[:CODE]).to eq('16')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Date)')
+
+        when 6
+          expect(row[:CODE]).to eq('4')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Boolean)')
+
+        when 7
+          expect(row[:CODE]).to eq('6')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Integer)')
+
+        when 8
+          expect(row[:CODE]).to eq('7')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Monetary)')
+
+        when 9
+          expect(row[:CODE]).to eq('8')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Percentage)')
+        end
+      end
+    end
+
+    it 'Sheet 6/7: Members_MET10' do
+      expect_each_row(workbooks, workbook_name, 'Members_MET10', 4) do |row, index|
+        expect(row).to be_an_instance_of(Hash)
+
+        case index
+        when 0
+          expect(row[:ID].length).to eq(36)
+          expect(row[:CODE]).to eq('16')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Date)')
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:STARTDATE]).to be_nil
+          expect(row[:ENDDATE]).to be_nil
+          expect(row.length).to eq(7)
+
+        when 1
+          expect(row[:CODE]).to eq('7')
+          expect(row[:RELATION]).to eq('16')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Monetary)')
+
+        when 2
+          expect(row[:CODE]).to eq('8')
+          expect(row[:RELATION]).to eq('7')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Percentage)')
+
+        when 3
+          expect(row[:CODE]).to eq('6')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Integer)')
+
+        end
+      end
+    end
+
+    it 'Sheet 7/7: Members_METHIER' do
+      expect_each_row(workbooks, workbook_name, 'Members_METHIER', 1) do |row, index|
+        expect(row).to be_an_instance_of(Hash)
+
+        case index
+        when 0
+          expect(row[:ID].length).to eq(36)
+          expect(row[:CODE]).to eq('1')
+          expect(row[:RELATION]).to be_nil
+          expect(row[:PREFLABEL_FI]).to eq('Metric member (fi, label)')
+          expect(row[:PREFLABEL_EN]).to be_nil
+          expect(row[:STARTDATE]).to be_nil
+          expect(row[:ENDDATE]).to be_nil
+          expect(row.length).to eq(7)
 
         end
       end

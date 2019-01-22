@@ -6,15 +6,21 @@ module DpmYtiMapping
 
     class MetricsListWorkbook
 
-      def self.generate_workbook(metrics)
+      def self.generate_workbook(metrics, metric_hierarchies)
+        sheets = [
+          codescheme_sd(),
+          codes_sd(metrics),
+          metric_extensions_sd(metric_hierarchies),
+          metric_extension_members_sd(metrics)
+        ]
+
+        metric_hierarchies.map do |hierarchy_item|
+          sheets << metric_hierarchy_extension_members_sd(hierarchy_item)
+        end
+
         WorkbookModel::WorkbookData.new(
           "#{YtiRds::Constants.versioned_code('metrics')}",
-          [
-            codescheme_sd,
-            codes_sd(metrics),
-            metric_extension_sd,
-            metric_extension_members_sd(metrics)
-          ]
+          sheets
         )
       end
 
@@ -49,7 +55,7 @@ module DpmYtiMapping
         rows = metrics.map do |met|
           {
             ID: SecureRandom.uuid,
-            CODEVALUE: met.corresponding_member_code_number,
+            CODEVALUE: met.corresponding_member.code_number,
             BROADER: nil,
             STATUS: YtiRds::Constants::STATUS,
             PREFLABEL_FI: met.corresponding_member.concept.label_fi,
@@ -68,8 +74,8 @@ module DpmYtiMapping
         )
       end
 
-      def self.metric_extension_sd
-        row = {
+      def self.metric_extensions_sd(metric_hierarchies)
+        dpm_metric_row = {
           ID: SecureRandom.uuid,
           CODEVALUE: YtiRds::Constants::ExtensionTypes::DPM_METRIC,
           STATUS: YtiRds::Constants::STATUS,
@@ -83,10 +89,27 @@ module DpmYtiMapping
           )
         }
 
+        rows = [dpm_metric_row] + metric_hierarchies.map do |hierarchy_item|
+
+          h = hierarchy_item.hierarchy
+
+          {
+            ID: SecureRandom.uuid,
+            CODEVALUE: h.HierarchyCode,
+            STATUS: YtiRds::Constants::STATUS,
+            PROPERTYTYPE: YtiRds::Constants::ExtensionTypes::DEFINITION_HIERARCHY,
+            PREFLABEL_FI: h.concept.label_fi,
+            PREFLABEL_EN: h.concept.label_en,
+            STARTDATE: h.concept.start_date_iso8601,
+            ENDDATE: h.concept.end_date_iso8601,
+            MEMBERSSHEET: YtiRds::Sheets.extension_members_name(h.HierarchyCode)
+          }
+        end
+
         WorkbookModel::SheetData.new(
           YtiRds::Sheets.extensions_name,
           YtiRds::Sheets.extensions_columns,
-          [row]
+          rows
         )
       end
 
@@ -161,6 +184,30 @@ module DpmYtiMapping
         dpm_balance_type
       end
 
+      def self.metric_hierarchy_extension_members_sd(hierarchy_item)
+        h = hierarchy_item.hierarchy
+
+        rows = hierarchy_item.nodes.map do |hn|
+
+          row = {
+            ID: SecureRandom.uuid,
+            CODE: hn.member.code_number,
+            RELATION: hn.parent_member.nil? ? nil : hn.parent_member.code_number,
+            PREFLABEL_FI: hn.concept.label_fi,
+            PREFLABEL_EN: hn.concept.label_en,
+            STARTDATE: hn.concept.start_date_iso8601,
+            ENDDATE: hn.concept.end_date_iso8601
+          }
+
+          row
+        end
+
+        WorkbookModel::SheetData.new(
+          YtiRds::Sheets.extension_members_name(h.HierarchyCode),
+          YtiRds::Sheets.extension_members_columns(YtiRds::Constants::ExtensionTypes::DEFINITION_HIERARCHY),
+          rows
+        )
+      end
     end
   end
 end

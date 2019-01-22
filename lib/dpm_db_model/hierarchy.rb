@@ -11,6 +11,10 @@ module DpmDbModel
         where(DomainID: domain.DomainID)
       end
 
+      def for_domain_and_owner(domain, owner)
+        where(DomainID: domain.DomainID).association_join(:concept).where(OwnerId: owner.OwnerID)
+      end
+
       def all_sorted_naturally_by_hiercode
         Naturally.sort(all(), by: :HierarchyCode)
       end

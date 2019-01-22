@@ -5,7 +5,8 @@ require 'naturally'
 
 puts "Generating workbooks for YTI Reference Data import from Data Point Model database (SQLite)"
 
-DB = Sequel.connect('sqlite://../dpm-fi-sbr-38.db')
+DB = Sequel.connect('sqlite://../dpm-fi-sbr-41.2.db')
+#DB = Sequel.connect('sqlite://../spec/fixtures/dm_integration_fixture.db')
 
 Dir['./dpm_db_model/*.rb'].each { |f| require f }
 Dir['./workbook_model/*.rb'].each { |f| require f }

@@ -131,7 +131,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
   end
 
   context 'Workbook: domain-members-and-hierarchies EDA' do
-    let(:workbook_name) { 'domain-members-and-hierarchies-EDA-2018-1' }
+    let(:workbook_name) { 'ed-EDA-2018-1-members-and-hierarchies' }
 
     it 'should have 3+3 sheets' do
       expect_each_sheet(workbooks, workbook_name, 3 + 3) do |sheet, index|
@@ -367,7 +367,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
   end
 
   context 'Workbook: domain-members-and-hierarchies DOME' do
-    let(:workbook_name) { 'domain-members-and-hierarchies-DOME-2018-1' }
+    let(:workbook_name) { 'ed-DOME-2018-1-members-and-hierarchies' }
 
     it 'should have 5 sheets' do
       expect_each_sheet(workbooks, workbook_name, 5) do |sheet, index|

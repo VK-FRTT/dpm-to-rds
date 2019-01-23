@@ -181,7 +181,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
     end
 
     it 'Sheet 2/6: Codes' do
-      expect_each_row(workbooks, workbook_name, 'Codes', 12) do |row, index|
+      expect_each_row(workbooks, workbook_name, 'Codes', 13) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
@@ -240,6 +240,10 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
 
         when 11
           expect(row[:CODEVALUE]).to eq('EDA-x20')
+
+        when 12
+          expect(row[:CODEVALUE]).to eq('EDA-x21')
+
         end
       end
     end
@@ -275,39 +279,55 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
     end
 
     it 'Sheet 4/6: Members_EDA-H1' do
-      expect_each_row(workbooks, workbook_name, 'Members_EDA-H1', 5) do |row, index|
+      expect_each_row(workbooks, workbook_name, 'Members_EDA-H1', 8) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
         when 0
           expect(row[:ID].length).to eq(36)
-          expect(row[:CODE]).to eq('EDA-x2')
-          expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 2')
+          expect(row[:CODE]).to eq('EDA-x20')
+          expect(row[:PREFLABEL_FI]).to eq('EDA member 7')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
+          expect(row[:RELATION]).to be_nil
           expect(row.length).to eq(7)
 
         when 1
-          expect(row[:CODE]).to eq('EDA-x3')
-          expect(row[:RELATION]).to eq('EDA-x2')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 3')
+          expect(row[:CODE]).to eq('EDA-x9')
+          expect(row[:PREFLABEL_FI]).to eq('EDA member 4')
+          expect(row[:RELATION]).to be_nil
 
         when 2
-          expect(row[:CODE]).to eq('EDA-x1')
-          expect(row[:RELATION]).to eq('EDA-x3')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 1')
+          expect(row[:CODE]).to eq('EDA-x10')
+          expect(row[:PREFLABEL_FI]).to eq('EDA member 5')
+          expect(row[:RELATION]).to eq('EDA-x9')
 
         when 3
-          expect(row[:CODE]).to eq('EDA-x9')
+          expect(row[:CODE]).to eq('EDA-x19')
+          expect(row[:PREFLABEL_FI]).to eq('EDA member 6')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 4')
 
         when 4
-          expect(row[:CODE]).to eq('EDA-x10')
-          expect(row[:RELATION]).to eq('EDA-x9')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 5')
+          expect(row[:CODE]).to eq('EDA-x2')
+          expect(row[:PREFLABEL_FI]).to eq('EDA member 2')
+          expect(row[:RELATION]).to be_nil
+
+        when 5
+          expect(row[:CODE]).to eq('EDA-x1')
+          expect(row[:PREFLABEL_FI]).to eq('EDA member 1')
+          expect(row[:RELATION]).to eq('EDA-x2')
+
+        when 6
+          expect(row[:CODE]).to eq('EDA-x3')
+          expect(row[:PREFLABEL_FI]).to eq('EDA member 3')
+          expect(row[:RELATION]).to eq('EDA-x2')
+
+        when 7
+          expect(row[:CODE]).to eq('EDA-x21')
+          expect(row[:PREFLABEL_FI]).to eq('EDA member 8')
+          expect(row[:RELATION]).to be_nil
+
         end
       end
     end

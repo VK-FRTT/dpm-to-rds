@@ -373,34 +373,74 @@ RSpec.describe DpmYtiMapping::Metrics do
     end
 
     it 'Sheet 6/7: Members_MET10' do
-      expect_each_row(workbooks, workbook_name, 'Members_MET10', 4) do |row, index|
+      expect_each_row(workbooks, workbook_name, 'Members_MET10', 12) do |row, index|
         expect(row).to be_an_instance_of(Hash)
 
         case index
         when 0
           expect(row[:ID].length).to eq(36)
-          expect(row[:CODE]).to eq('16')
-          expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Date)')
+          expect(row[:CODE]).to eq('4')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Boolean)')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
+          expect(row[:RELATION]).to be_nil
           expect(row.length).to eq(7)
 
         when 1
-          expect(row[:CODE]).to eq('7')
-          expect(row[:RELATION]).to eq('16')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Monetary)')
+          expect(row[:CODE]).to eq('3')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Enumeration: EDA)')
+          expect(row[:RELATION]).to be_nil
 
         when 2
-          expect(row[:CODE]).to eq('8')
-          expect(row[:RELATION]).to eq('7')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Percentage)')
+          expect(row[:CODE]).to eq('16')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Date)')
+          expect(row[:RELATION]).to be_nil
 
         when 3
+          expect(row[:CODE]).to eq('9')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (String)')
+          expect(row[:RELATION]).to eq('16')
+
+        when 4
+          expect(row[:CODE]).to eq('13')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (String, Instant, Credit)')
+          expect(row[:RELATION]).to eq('16')
+
+        when 5
+          expect(row[:CODE]).to eq('14')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (String, Duration, Debit)')
+          expect(row[:RELATION]).to eq('13')
+
+        when 6
+          expect(row[:CODE]).to eq('7')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Monetary)')
+          expect(row[:RELATION]).to eq('16')
+
+        when 7
+          expect(row[:CODE]).to eq('11')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Lei)')
+          expect(row[:RELATION]).to eq('7')
+
+        when 8
+          expect(row[:CODE]).to eq('8')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Percentage)')
+          expect(row[:RELATION]).to eq('7')
+
+        when 9
+          expect(row[:CODE]).to eq('12')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Isin)')
+          expect(row[:RELATION]).to eq('7')
+
+        when 10
+          expect(row[:CODE]).to eq('10')
+          expect(row[:PREFLABEL_FI]).to eq('MET member (Decimal)')
+          expect(row[:RELATION]).to eq('7')
+
+        when 11
           expect(row[:CODE]).to eq('6')
-          expect(row[:RELATION]).to be_nil
           expect(row[:PREFLABEL_FI]).to eq('MET member (Integer)')
+          expect(row[:RELATION]).to be_nil
 
         end
       end

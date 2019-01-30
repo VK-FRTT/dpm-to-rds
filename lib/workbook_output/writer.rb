@@ -1,7 +1,9 @@
 module WorkbookOutput
   class Writer
 
-    SUPPRESS_IDS = false
+    SUPPRESS_IDS = true
+    FORCE_CODESCHEME_START_DATE = true
+    FORCE_EXTENSION_START_DATE = true
 
     def self.write_workbooks(workbook_models)
       workbook_models.each { |workbook_model| write_workbook(workbook_model) }
@@ -15,11 +17,7 @@ module WorkbookOutput
 
       workbook_model.sheets.each { |sheet| add_sheet_to_workbook(sheet, wb) }
 
-      if SUPPRESS_IDS
-        target_file_name = "../output/#{workbook_model.workbook_name}-no-ids.xlsx"
-      else
-        target_file_name = "../output/#{workbook_model.workbook_name}.xlsx"
-      end
+      target_file_name = "../output/#{workbook_model.workbook_name}.xlsx"
 
       ap.serialize(target_file_name)
       puts "Wrote: #{target_file_name}"
@@ -47,6 +45,14 @@ module WorkbookOutput
 
           if SUPPRESS_IDS && column_name == :ID
             cell_value = nil
+          end
+
+          if FORCE_CODESCHEME_START_DATE && column_name == :STARTDATE && sheet_data.sheet_name == YtiRds::Sheets.codescheme_name
+            cell_value = '2018-12-01'
+          end
+
+          if FORCE_EXTENSION_START_DATE && column_name == :STARTDATE && sheet_data.sheet_name == YtiRds::Sheets.extensions_name
+            cell_value = '2018-12-01'
           end
 
           cell_value

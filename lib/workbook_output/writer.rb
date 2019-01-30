@@ -47,6 +47,10 @@ module WorkbookOutput
             cell_value = nil
           end
 
+          if SUPPRESS_IDS && column_name == :SUBCODESCHEME
+            cell_value = nil
+          end
+
           if FORCE_CODESCHEME_START_DATE && column_name == :STARTDATE && sheet_data.sheet_name == YtiRds::Sheets.codescheme_name
             cell_value = '2018-12-01'
           end

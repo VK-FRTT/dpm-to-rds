@@ -1,9 +1,9 @@
 module WorkbookOutput
   class Writer
 
-    SUPPRESS_IDS = true
-    FORCE_CODESCHEME_START_DATE = true
-    FORCE_EXTENSION_START_DATE = true
+    SUPPRESS_IDS = false
+    FORCE_CODESCHEME_START_DATE = false
+    FORCE_EXTENSION_START_DATE = false
 
     def self.write_workbooks(workbook_models)
       workbook_models.each { |workbook_model| write_workbook(workbook_model) }

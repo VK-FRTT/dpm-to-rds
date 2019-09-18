@@ -192,7 +192,7 @@ module DpmYtiMapping
           row = {
             ID: SecureRandom.uuid,
             CODE: hn.member.code_number,
-            RELATION: hn.parent_member.nil? ? nil : hn.parent_member.code_number,
+            RELATION: hn.parent_member.nil? ? nil : "code:#{hn.parent_member.code_number}",
             PREFLABEL_FI: hn.concept.label_fi,
             PREFLABEL_EN: hn.concept.label_en,
             STARTDATE: hn.concept.start_date_iso8601,

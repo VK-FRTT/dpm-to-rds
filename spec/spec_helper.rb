@@ -14,7 +14,7 @@ end
 require 'sequel'
 require 'naturally'
 
-DB = Sequel.connect('sqlite://spec/fixtures/dm_integration_fixture.db')
+DB = Sequel.connect('sqlite://spec/fixtures/integration_fixture.db')
 
 Dir['./lib/dpm_db_model/*.rb'].each { |f| require f }
 Dir['./lib/workbook_model/*.rb'].each { |f| require f }

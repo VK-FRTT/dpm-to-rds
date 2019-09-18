@@ -318,7 +318,7 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('9')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (String)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (String)')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
@@ -327,47 +327,47 @@ RSpec.describe DpmYtiMapping::Metrics do
         when 1
           expect(row[:CODE]).to eq('10')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Decimal)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Decimal)')
 
         when 2
           expect(row[:CODE]).to eq('11')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Lei)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Lei)')
 
         when 3
           expect(row[:CODE]).to eq('12')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Isin)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Isin)')
 
         when 4
           expect(row[:CODE]).to eq('3')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Enumeration: EDA)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Enumeration: EDA)')
 
         when 5
           expect(row[:CODE]).to eq('16')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Date)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Date)')
 
         when 6
           expect(row[:CODE]).to eq('4')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Boolean)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Boolean)')
 
         when 7
           expect(row[:CODE]).to eq('6')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Integer)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Integer)')
 
         when 8
           expect(row[:CODE]).to eq('7')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Monetary)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Monetary)')
 
         when 9
           expect(row[:CODE]).to eq('8')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Percentage)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Percentage)')
         end
       end
     end
@@ -380,7 +380,7 @@ RSpec.describe DpmYtiMapping::Metrics do
         when 0
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('4')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Boolean)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Boolean)')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
@@ -389,57 +389,57 @@ RSpec.describe DpmYtiMapping::Metrics do
 
         when 1
           expect(row[:CODE]).to eq('3')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Enumeration: EDA)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Enumeration: EDA)')
           expect(row[:RELATION]).to be_nil
 
         when 2
           expect(row[:CODE]).to eq('16')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Date)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Date)')
           expect(row[:RELATION]).to be_nil
 
         when 3
           expect(row[:CODE]).to eq('9')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (String)')
-          expect(row[:RELATION]).to eq('16')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (String)')
+          expect(row[:RELATION]).to eq('code:16')
 
         when 4
           expect(row[:CODE]).to eq('13')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (String, Instant, Credit)')
-          expect(row[:RELATION]).to eq('16')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (String, Instant, Credit)')
+          expect(row[:RELATION]).to eq('code:16')
 
         when 5
           expect(row[:CODE]).to eq('14')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (String, Duration, Debit)')
-          expect(row[:RELATION]).to eq('13')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (String, Duration, Debit)')
+          expect(row[:RELATION]).to eq('code:13')
 
         when 6
           expect(row[:CODE]).to eq('7')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Monetary)')
-          expect(row[:RELATION]).to eq('16')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Monetary)')
+          expect(row[:RELATION]).to eq('code:16')
 
         when 7
           expect(row[:CODE]).to eq('11')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Lei)')
-          expect(row[:RELATION]).to eq('7')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Lei)')
+          expect(row[:RELATION]).to eq('code:7')
 
         when 8
           expect(row[:CODE]).to eq('8')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Percentage)')
-          expect(row[:RELATION]).to eq('7')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Percentage)')
+          expect(row[:RELATION]).to eq('code:7')
 
         when 9
           expect(row[:CODE]).to eq('12')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Isin)')
-          expect(row[:RELATION]).to eq('7')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Isin)')
+          expect(row[:RELATION]).to eq('code:7')
 
         when 10
           expect(row[:CODE]).to eq('10')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Decimal)')
-          expect(row[:RELATION]).to eq('7')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Decimal)')
+          expect(row[:RELATION]).to eq('code:7')
 
         when 11
           expect(row[:CODE]).to eq('6')
-          expect(row[:PREFLABEL_FI]).to eq('MET member (Integer)')
+          expect(row[:PREFLABEL_FI]).to eq('MET hierarchy node (Integer)')
           expect(row[:RELATION]).to be_nil
 
         end
@@ -455,7 +455,7 @@ RSpec.describe DpmYtiMapping::Metrics do
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('1')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('Metric member (fi, label)')
+          expect(row[:PREFLABEL_FI]).to eq('Metric hierarchy node (fi, label)')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil

@@ -286,7 +286,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
         when 0
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('EDA-x20')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 7')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node 7')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
@@ -295,37 +295,37 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
 
         when 1
           expect(row[:CODE]).to eq('EDA-x9')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 4')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node 4')
           expect(row[:RELATION]).to be_nil
 
         when 2
           expect(row[:CODE]).to eq('EDA-x10')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 5')
-          expect(row[:RELATION]).to eq('EDA-x9')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node 5')
+          expect(row[:RELATION]).to eq('code:EDA-x9')
 
         when 3
           expect(row[:CODE]).to eq('EDA-x19')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 6')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node 6')
           expect(row[:RELATION]).to be_nil
 
         when 4
           expect(row[:CODE]).to eq('EDA-x2')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 2')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node 2')
           expect(row[:RELATION]).to be_nil
 
         when 5
           expect(row[:CODE]).to eq('EDA-x1')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 1')
-          expect(row[:RELATION]).to eq('EDA-x2')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node 1')
+          expect(row[:RELATION]).to eq('code:EDA-x2')
 
         when 6
           expect(row[:CODE]).to eq('EDA-x3')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 3')
-          expect(row[:RELATION]).to eq('EDA-x2')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node 3')
+          expect(row[:RELATION]).to eq('code:EDA-x2')
 
         when 7
           expect(row[:CODE]).to eq('EDA-x21')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member 8')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node 8')
           expect(row[:RELATION]).to be_nil
 
         end
@@ -343,7 +343,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:RELATION]).to be_nil
           expect(row[:UNARYOPERATOR]).to eq('+')
           expect(row[:COMPARISONOPERATOR]).to eq('=')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member (=, 1)')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node (=, 1)')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil
@@ -354,28 +354,28 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:RELATION]).to be_nil
           expect(row[:UNARYOPERATOR]).to be_nil
           expect(row[:COMPARISONOPERATOR]).to eq('>')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member (>, 2)')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node (>, 2)')
 
         when 2
           expect(row[:CODE]).to eq('EDA-x6')
           expect(row[:RELATION]).to be_nil
           expect(row[:UNARYOPERATOR]).to be_nil
           expect(row[:COMPARISONOPERATOR]).to eq('<')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member (<, 0)')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node (<, 0)')
 
         when 3
           expect(row[:CODE]).to eq('EDA-x7')
           expect(row[:RELATION]).to be_nil
           expect(row[:UNARYOPERATOR]).to eq('-')
           expect(row[:COMPARISONOPERATOR]).to eq('>=')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member (>=, -1)')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node (>=, -1)')
 
         when 4
           expect(row[:CODE]).to eq('EDA-x8')
           expect(row[:RELATION]).to be_nil
           expect(row[:UNARYOPERATOR]).to be_nil
           expect(row[:COMPARISONOPERATOR]).to eq('<=')
-          expect(row[:PREFLABEL_FI]).to eq('EDA member (<=, -2)')
+          expect(row[:PREFLABEL_FI]).to eq('EDA hierarchy node (<=, -2)')
         end
       end
     end
@@ -518,7 +518,7 @@ RSpec.describe DpmYtiMapping::ExplicitDomainsAndHierarchies do
           expect(row[:ID].length).to eq(36)
           expect(row[:CODE]).to eq('MEM')
           expect(row[:RELATION]).to be_nil
-          expect(row[:PREFLABEL_FI]).to eq('Member (fi, label)')
+          expect(row[:PREFLABEL_FI]).to eq('Hierarchy node (fi, label)')
           expect(row[:PREFLABEL_EN]).to be_nil
           expect(row[:STARTDATE]).to be_nil
           expect(row[:ENDDATE]).to be_nil

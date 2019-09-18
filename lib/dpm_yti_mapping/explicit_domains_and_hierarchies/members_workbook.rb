@@ -114,7 +114,7 @@ module DpmYtiMapping
             UNARYOPERATOR: hn.UnaryOperator,
             COMPARISONOPERATOR: hn.ComparisonOperator,
             CODE: hn.member.MemberCode,
-            RELATION: hn.parent_member.nil? ? nil : hn.parent_member.MemberCode,
+            RELATION: hn.parent_member.nil? ? nil : "code:#{hn.parent_member.MemberCode}",
             PREFLABEL_FI: hn.concept.label_fi,
             PREFLABEL_EN: hn.concept.label_en,
             STARTDATE: hn.concept.start_date_iso8601,
